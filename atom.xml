@@ -64,50 +64,25 @@
   </entry>
   
   <entry>
-    <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
-    <link href="taicaile.github.com/2020/01/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html"/>
-    <id>taicaile.github.com/2020/01/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html</id>
+    <title>PicGo + GitHub 搭建自己的图床</title>
+    <link href="taicaile.github.com/2020/01/github-picgo-da-jian-tu-chuang.html"/>
+    <id>taicaile.github.com/2020/01/github-picgo-da-jian-tu-chuang.html</id>
     <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:44:58.449Z</updated>
+    <updated>2020-01-25T07:44:51.368Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="GitHub创建仓库"><a href="#GitHub创建仓库" class="headerlink" title="GitHub创建仓库"></a>GitHub创建仓库</h2><ol><li>Github中新建一个仓库，单独存储图片用</li><li>点击个人setting，选择Developer settings，生成token用于实现程序自动化上传<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-personal-setting.png" alt="设置选项"></li><li>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 Generate token 就完成了</li><li>然后复制生成一串字符 token，添加到PicGo中</li></ol><h2 id="PicGo-下载连接"><a href="#PicGo-下载连接" class="headerlink" title="PicGo 下载连接"></a>PicGo 下载连接</h2><p>PicGo 支持拖动图片上传到GitHub同时生成Markdown引用，下载地址如下：</p><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></p><p>按照下图提示对GitHub进行配置即可<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-picgo-setting.png" alt="PicGo-github配置选项"></p><h2 id="备用的方案"><a href="#备用的方案" class="headerlink" title="备用的方案"></a>备用的方案</h2><p>这里提供两个免费的图床，都很方便使用，不过小编有恐惧症，总怕有一天跑路了，图片就找不到了。</p><p><a href="https://imgbb.com/" target="_blank" rel="noopener">https://imgbb.com/</a></p><p><a href="http://sm.ms/" target="_blank" rel="noopener">http://sm.ms/</a></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png&quot; alt=&quot;阿里云监控CPU历史占用率&quot;&gt;&lt;/p&gt;
-&lt;h2 id
+        &lt;h2 id=&quot;GitHub创建仓库&quot;&gt;&lt;a href=&quot;#GitHub创建仓库&quot; class=&quot;headerlink&quot; title=&quot;GitHub创建仓库&quot;&gt;&lt;/a&gt;GitHub创建仓库&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Github中新建一个仓库，单独存储图片用&lt;/li&gt;
+&lt;li&gt;点
       
     
     </summary>
     
-    
-    
-  </entry>
-  
-  <entry>
-    <title>百度蜘蛛抓取时间问题以及反馈码问题</title>
-    <link href="taicaile.github.com/2020/01/seo/bai-du-zhi-zhu-zhua-qu-shi-jian-yi-ji-fan-kui-ma-wen-ti.html"/>
-    <id>taicaile.github.com/2020/01/seo/bai-du-zhi-zhu-zhua-qu-shi-jian-yi-ji-fan-kui-ma-wen-ti.html</id>
-    <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:41:29.243Z</updated>
-    
-    <content type="html"><![CDATA[<p>同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？</p><p>工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。</p><p>在深圳Baiduspider3.0主题的高端沙龙中，我们的高级工程师也有这样一页PPT，其中提到历史抓取效果好和服务器稳定的站点，Spider会优先抓取处理。</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-link.jpg" alt="百度链接抓取说明"></p><ul><li><p>蜘蛛反馈码一般分为以下几种：</p><ul><li>200  （成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。</li><li>204  （无内容）  服务器成功处理了请求，但没有返回任何内容。</li><li>304  （未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。</li><li>400  （错误请求） 服务器不理解请求的语法。</li><li>404  （未找到） 服务器找不到请求的网页。</li></ul></li><li><p>网站LOG文件可以用以下网站进行分析，方便识别百度蜘蛛，谷歌蜘蛛等信息<br><a href="https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html" target="_blank" rel="noopener">https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html</a></p></li><li><p>遇到的问题<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-response-code.png" alt="百度蜘蛛反馈码看不懂"></p></li><li><p>问题分析</p><ul><li>先用百度 spider 进行抓取模拟，通过分析，目前还不得知百度反馈码 200 41240，这个“41240” 指的是什么意思。</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？&lt;/p&gt;
-&lt;p&gt;工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。&lt;/p&gt;
-&lt;p&gt;在深圳Baiduspid
-      
-    
-    </summary>
-    
-    
-      <category term="SEO" scheme="taicaile.github.com/categories/SEO/"/>
     
     
   </entry>
@@ -139,25 +114,27 @@
   </entry>
   
   <entry>
-    <title>如何优化WordPress的内存占用大小</title>
-    <link href="taicaile.github.com/2020/01/wordpress/lnmp-you-hua-wordpress-nei-cun-zhan-yong-guo-gao-wen-ti.html"/>
-    <id>taicaile.github.com/2020/01/wordpress/lnmp-you-hua-wordpress-nei-cun-zhan-yong-guo-gao-wen-ti.html</id>
+    <title>百度蜘蛛抓取时间问题以及反馈码问题</title>
+    <link href="taicaile.github.com/2020/01/seo/bai-du-zhi-zhu-zhua-qu-shi-jian-yi-ji-fan-kui-ma-wen-ti.html"/>
+    <id>taicaile.github.com/2020/01/seo/bai-du-zhi-zhu-zhua-qu-shi-jian-yi-ji-fan-kui-ma-wen-ti.html</id>
     <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:41:45.171Z</updated>
+    <updated>2020-01-25T07:41:29.243Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="情况说明"><a href="#情况说明" class="headerlink" title="情况说明"></a>情况说明</h2><p>我的主机配置是 1G内存，1M带宽。<br>近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。</p><p>下边尝试对内存占用率进行查看。</p><ol><li><p>首选利用top命令，查看那个进程消耗内存最高</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-mem-check.png" alt="内存占用率查看"></p><p>由上图可以看出php-fpm这个进程占用率比较高。</p></li><li><p>php-fpm是干嘛的</p><blockquote><p>nginx本身不能处理PHP，它只是个web服务器，当接收到请求后，如果是php请求，则发给php解释器处理，并把结果返回给客户端。<br>nginx一般是把请求发fastcgi管理进程处理，fascgi管理进程选择cgi子进程处理结果并返回被nginx。<br>PHP-FPM是一个PHP FastCGI管理器，旨在将FastCGI进程管理整合进PHP包中。<br>PHP-FPM提供了更好的PHP进程管理方式，可以有效控制内存和进程、可以平滑重载PHP配置，比spawn-fcgi具有更多优点，所以被PHP官方收录了。</p></blockquote><p>查看当前php-fpm总进程数，命令：ps -ylC php-fpm –sort:rss。其中RSS就是占用的内存情况。如下图：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-18-aliyun-mem-rss.png" alt="php-fpm 内存占用"></p><p>由上图可以看出php-fpm进程普遍占用60M左右内存，这是不正常的。</p></li></ol><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>对于宝塔用户来说，php配置文件路径在</p><pre class="line-numbers language-bash"><code class="language-bash">php.ini地址：/www/server/php/版本（根据实际情况）/etc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在宝塔界面，同样提供了修改配置文件，如下图为默认配置：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-php-conf-default.png" alt="修改配置文件"></p><h3 id="解决php-fpm进程不释放内存问题"><a href="#解决php-fpm进程不释放内存问题" class="headerlink" title="解决php-fpm进程不释放内存问题"></a>解决php-fpm进程不释放内存问题</h3><p>同样修改了每个子程序在最大request数量导致重启的数值</p><pre class="line-numbers language-bash"><code class="language-bash">pm.max_requests <span class="token operator">=</span> 500<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>经过这两天的测试，发现修改完效果比较好，见下图内存占用率监控</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/after-setting-php-fpm.jpg" alt="内存占用率监控"></p>]]></content>
+    <content type="html"><![CDATA[<p>同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？</p><p>工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。</p><p>在深圳Baiduspider3.0主题的高端沙龙中，我们的高级工程师也有这样一页PPT，其中提到历史抓取效果好和服务器稳定的站点，Spider会优先抓取处理。</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-link.jpg" alt="百度链接抓取说明"></p><ul><li><p>蜘蛛反馈码一般分为以下几种：</p><ul><li>200  （成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。</li><li>204  （无内容）  服务器成功处理了请求，但没有返回任何内容。</li><li>304  （未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。</li><li>400  （错误请求） 服务器不理解请求的语法。</li><li>404  （未找到） 服务器找不到请求的网页。</li></ul></li><li><p>网站LOG文件可以用以下网站进行分析，方便识别百度蜘蛛，谷歌蜘蛛等信息<br><a href="https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html" target="_blank" rel="noopener">https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html</a></p></li><li><p>遇到的问题<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-response-code.png" alt="百度蜘蛛反馈码看不懂"></p></li><li><p>问题分析</p><ul><li>先用百度 spider 进行抓取模拟，通过分析，目前还不得知百度反馈码 200 41240，这个“41240” 指的是什么意思。</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;情况说明&quot;&gt;&lt;a href=&quot;#情况说明&quot; class=&quot;headerlink&quot; title=&quot;情况说明&quot;&gt;&lt;/a&gt;情况说明&lt;/h2&gt;&lt;p&gt;我的主机配置是 1G内存，1M带宽。&lt;br&gt;近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的
+        &lt;p&gt;同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？&lt;/p&gt;
+&lt;p&gt;工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。&lt;/p&gt;
+&lt;p&gt;在深圳Baiduspid
       
     
     </summary>
     
     
-      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+      <category term="SEO" scheme="taicaile.github.com/categories/SEO/"/>
     
     
   </entry>
@@ -177,6 +154,30 @@
       
         &lt;h2 id=&quot;一些用于测试速度的网站&quot;&gt;&lt;a href=&quot;#一些用于测试速度的网站&quot; class=&quot;headerlink&quot; title=&quot;一些用于测试速度的网站&quot;&gt;&lt;/a&gt;一些用于测试速度的网站&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;很重要的一条是来自于百度蜘蛛，在百度资源管理中&lt;b
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何优化WordPress的内存占用大小</title>
+    <link href="taicaile.github.com/2020/01/wordpress/lnmp-you-hua-wordpress-nei-cun-zhan-yong-guo-gao-wen-ti.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/lnmp-you-hua-wordpress-nei-cun-zhan-yong-guo-gao-wen-ti.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:41:45.171Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="情况说明"><a href="#情况说明" class="headerlink" title="情况说明"></a>情况说明</h2><p>我的主机配置是 1G内存，1M带宽。<br>近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。</p><p>下边尝试对内存占用率进行查看。</p><ol><li><p>首选利用top命令，查看那个进程消耗内存最高</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-mem-check.png" alt="内存占用率查看"></p><p>由上图可以看出php-fpm这个进程占用率比较高。</p></li><li><p>php-fpm是干嘛的</p><blockquote><p>nginx本身不能处理PHP，它只是个web服务器，当接收到请求后，如果是php请求，则发给php解释器处理，并把结果返回给客户端。<br>nginx一般是把请求发fastcgi管理进程处理，fascgi管理进程选择cgi子进程处理结果并返回被nginx。<br>PHP-FPM是一个PHP FastCGI管理器，旨在将FastCGI进程管理整合进PHP包中。<br>PHP-FPM提供了更好的PHP进程管理方式，可以有效控制内存和进程、可以平滑重载PHP配置，比spawn-fcgi具有更多优点，所以被PHP官方收录了。</p></blockquote><p>查看当前php-fpm总进程数，命令：ps -ylC php-fpm –sort:rss。其中RSS就是占用的内存情况。如下图：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-18-aliyun-mem-rss.png" alt="php-fpm 内存占用"></p><p>由上图可以看出php-fpm进程普遍占用60M左右内存，这是不正常的。</p></li></ol><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>对于宝塔用户来说，php配置文件路径在</p><pre class="line-numbers language-bash"><code class="language-bash">php.ini地址：/www/server/php/版本（根据实际情况）/etc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在宝塔界面，同样提供了修改配置文件，如下图为默认配置：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-php-conf-default.png" alt="修改配置文件"></p><h3 id="解决php-fpm进程不释放内存问题"><a href="#解决php-fpm进程不释放内存问题" class="headerlink" title="解决php-fpm进程不释放内存问题"></a>解决php-fpm进程不释放内存问题</h3><p>同样修改了每个子程序在最大request数量导致重启的数值</p><pre class="line-numbers language-bash"><code class="language-bash">pm.max_requests <span class="token operator">=</span> 500<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>经过这两天的测试，发现修改完效果比较好，见下图内存占用率监控</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/after-setting-php-fpm.jpg" alt="内存占用率监控"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;情况说明&quot;&gt;&lt;a href=&quot;#情况说明&quot; class=&quot;headerlink&quot; title=&quot;情况说明&quot;&gt;&lt;/a&gt;情况说明&lt;/h2&gt;&lt;p&gt;我的主机配置是 1G内存，1M带宽。&lt;br&gt;近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的
       
     
     </summary>
@@ -212,25 +213,49 @@
   </entry>
   
   <entry>
-    <title>PicGo + GitHub 搭建自己的图床</title>
-    <link href="taicaile.github.com/2020/01/github-picgo-da-jian-tu-chuang.html"/>
-    <id>taicaile.github.com/2020/01/github-picgo-da-jian-tu-chuang.html</id>
+    <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
+    <link href="taicaile.github.com/2020/01/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html"/>
+    <id>taicaile.github.com/2020/01/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html</id>
     <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:44:51.368Z</updated>
+    <updated>2020-01-25T07:44:58.449Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="GitHub创建仓库"><a href="#GitHub创建仓库" class="headerlink" title="GitHub创建仓库"></a>GitHub创建仓库</h2><ol><li>Github中新建一个仓库，单独存储图片用</li><li>点击个人setting，选择Developer settings，生成token用于实现程序自动化上传<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-personal-setting.png" alt="设置选项"></li><li>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 Generate token 就完成了</li><li>然后复制生成一串字符 token，添加到PicGo中</li></ol><h2 id="PicGo-下载连接"><a href="#PicGo-下载连接" class="headerlink" title="PicGo 下载连接"></a>PicGo 下载连接</h2><p>PicGo 支持拖动图片上传到GitHub同时生成Markdown引用，下载地址如下：</p><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></p><p>按照下图提示对GitHub进行配置即可<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-picgo-setting.png" alt="PicGo-github配置选项"></p><h2 id="备用的方案"><a href="#备用的方案" class="headerlink" title="备用的方案"></a>备用的方案</h2><p>这里提供两个免费的图床，都很方便使用，不过小编有恐惧症，总怕有一天跑路了，图片就找不到了。</p><p><a href="https://imgbb.com/" target="_blank" rel="noopener">https://imgbb.com/</a></p><p><a href="http://sm.ms/" target="_blank" rel="noopener">http://sm.ms/</a></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;GitHub创建仓库&quot;&gt;&lt;a href=&quot;#GitHub创建仓库&quot; class=&quot;headerlink&quot; title=&quot;GitHub创建仓库&quot;&gt;&lt;/a&gt;GitHub创建仓库&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;Github中新建一个仓库，单独存储图片用&lt;/li&gt;
-&lt;li&gt;点
+        &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png&quot; alt=&quot;阿里云监控CPU历史占用率&quot;&gt;&lt;/p&gt;
+&lt;h2 id
       
     
     </summary>
     
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在WordPress中如何进行调试输出调试信息</title>
+    <link href="taicaile.github.com/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:43:29.791Z</updated>
+    
+    <content type="html"><![CDATA[<p>可以选择记录在txt文档中，相关代码如下：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;可以选择记录在txt文档中，相关代码如下：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-PHP&quot;&gt;&lt;code class=&quot;language-PHP&quot;&gt;add_action(&#39;save_post&#39;, &#39;wpjam_save_post_noti
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
     
     
   </entry>
@@ -262,26 +287,26 @@
   </entry>
   
   <entry>
-    <title>在WordPress中如何进行调试输出调试信息</title>
-    <link href="taicaile.github.com/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html"/>
-    <id>taicaile.github.com/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html</id>
+    <title>Linux系统如何查看内存占用大小</title>
+    <link href="taicaile.github.com/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html"/>
+    <id>taicaile.github.com/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html</id>
     <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:43:29.791Z</updated>
+    <updated>2020-01-25T07:44:24.914Z</updated>
     
-    <content type="html"><![CDATA[<p>可以选择记录在txt文档中，相关代码如下：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    <content type="html"><![CDATA[<h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p><h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;可以选择记录在txt文档中，相关代码如下：&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-PHP&quot;&gt;&lt;code class=&quot;language-PHP&quot;&gt;add_action(&#39;save_post&#39;, &#39;wpjam_save_post_noti
+        &lt;h2 id=&quot;按进程的CPU使用率排序&quot;&gt;&lt;a href=&quot;#按进程的CPU使用率排序&quot; class=&quot;headerlink&quot; title=&quot;按进程的CPU使用率排序&quot;&gt;&lt;/a&gt;按进程的CPU使用率排序&lt;/h2&gt;&lt;p&gt;输入 top 命令后，键入大写P，效果图如下：&lt;/p&gt;
+&lt;p
       
     
     </summary>
     
     
-      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+      <category term="云服务器" scheme="taicaile.github.com/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
   </entry>
@@ -307,31 +332,6 @@
     
     
       <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Linux系统如何查看内存占用大小</title>
-    <link href="taicaile.github.com/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html"/>
-    <id>taicaile.github.com/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html</id>
-    <published>2020-01-19T16:00:00.000Z</published>
-    <updated>2020-01-25T07:44:24.914Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p><h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;按进程的CPU使用率排序&quot;&gt;&lt;a href=&quot;#按进程的CPU使用率排序&quot; class=&quot;headerlink&quot; title=&quot;按进程的CPU使用率排序&quot;&gt;&lt;/a&gt;按进程的CPU使用率排序&lt;/h2&gt;&lt;p&gt;输入 top 命令后，键入大写P，效果图如下：&lt;/p&gt;
-&lt;p
-      
-    
-    </summary>
-    
-    
-      <category term="云服务器" scheme="taicaile.github.com/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
   </entry>
