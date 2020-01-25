@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>草根站长小菜</title>
+  
+  <subtitle>持续学习</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="taicaile.github.com/"/>
+  <updated>2020-01-25T07:44:55.251Z</updated>
+  <id>taicaile.github.com/</id>
+  
+  <author>
+    <name>小菜</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用的正则表达式</title>
+    <link href="taicaile.github.com/2020/01/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"/>
+    <id>taicaile.github.com/2020/01/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</id>
+    <published>2020-01-23T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:55.251Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-txt"><code class="language-txt"><option[^>]*?>(([^<]+))<\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>可以有效提取value值，不包含标签</p><pre class="line-numbers language-txt"><code class="language-txt">(?<=(<option[^>]*?>(([^<]*)))).+(?=</option>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="在线测试工具"><a href="#在线测试工具" class="headerlink" title="在线测试工具"></a>在线测试工具</h2><p><a href="https://tool.oschina.net/regex" target="_blank" rel="noopener">https://tool.oschina.net/regex</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;匹配HTML下拉列表框的正则表达式&quot;&gt;&lt;a href=&quot;#匹配HTML下拉列表框的正则表达式&quot; class=&quot;headerlink&quot; title=&quot;匹配HTML下拉列表框的正则表达式&quot;&gt;&lt;/a&gt;匹配HTML下拉列表框的正则表达式&lt;/h2&gt;&lt;pre class=&quot;l
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Wordpress中如何检测一篇文章是新发布的还是更新</title>
+    <link href="taicaile.github.com/2020/01/wordpress/Wordpress%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%98%AF%E6%9B%B4%E6%96%B0%E8%BF%98%E6%98%AF%E6%96%B0%E5%8F%91%E5%B8%83.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/Wordpress%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%98%AF%E6%9B%B4%E6%96%B0%E8%BF%98%E6%98%AF%E6%96%B0%E5%8F%91%E5%B8%83.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:43:57.001Z</updated>
+    
+    <content type="html"><![CDATA[<p>在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。</p><pre class="line-numbers language-PHP"><code class="language-PHP">function check_new_vs_update( $post_id ){    $myPost        = get_post($post_id);    $post_created  = new DateTime( $myPost->post_date_gmt );    $post_modified = new DateTime( $myPost->post_modified_gmt );    if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){        // New post    }else{        // Updated post    }}add_action('save_post', 'check_new_vs_update' );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>完整版代码如下，message会记录在txt文档中：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-PHP&quot;&gt;&lt;code class=&quot;language-PHP&quot;&gt;function check_
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
+    <link href="taicaile.github.com/2020/01/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html"/>
+    <id>taicaile.github.com/2020/01/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:58.449Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png&quot; alt=&quot;阿里云监控CPU历史占用率&quot;&gt;&lt;/p&gt;
+&lt;h2 id
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>百度蜘蛛抓取时间问题以及反馈码问题</title>
+    <link href="taicaile.github.com/2020/01/SEO/%E7%99%BE%E5%BA%A6%E8%9C%98%E8%9B%9B%E6%8A%93%E5%8F%96%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E5%8F%8D%E9%A6%88%E7%A0%81%E9%97%AE%E9%A2%98.html"/>
+    <id>taicaile.github.com/2020/01/SEO/%E7%99%BE%E5%BA%A6%E8%9C%98%E8%9B%9B%E6%8A%93%E5%8F%96%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E5%8F%8D%E9%A6%88%E7%A0%81%E9%97%AE%E9%A2%98.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:41:29.243Z</updated>
+    
+    <content type="html"><![CDATA[<p>同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？</p><p>工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。</p><p>在深圳Baiduspider3.0主题的高端沙龙中，我们的高级工程师也有这样一页PPT，其中提到历史抓取效果好和服务器稳定的站点，Spider会优先抓取处理。</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-link.jpg" alt="百度链接抓取说明"></p><ul><li><p>蜘蛛反馈码一般分为以下几种：</p><ul><li>200  （成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。</li><li>204  （无内容）  服务器成功处理了请求，但没有返回任何内容。</li><li>304  （未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。</li><li>400  （错误请求） 服务器不理解请求的语法。</li><li>404  （未找到） 服务器找不到请求的网页。</li></ul></li><li><p>网站LOG文件可以用以下网站进行分析，方便识别百度蜘蛛，谷歌蜘蛛等信息<br><a href="https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html" target="_blank" rel="noopener">https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html</a></p></li><li><p>遇到的问题<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-response-code.png" alt="百度蜘蛛反馈码看不懂"></p></li><li><p>问题分析</p><ul><li>先用百度 spider 进行抓取模拟，通过分析，目前还不得知百度反馈码 200 41240，这个“41240” 指的是什么意思。</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？&lt;/p&gt;
+&lt;p&gt;工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。&lt;/p&gt;
+&lt;p&gt;在深圳Baiduspid
+      
+    
+    </summary>
+    
+    
+      <category term="SEO" scheme="taicaile.github.com/categories/SEO/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何优化WordPress的内存占用大小</title>
+    <link href="taicaile.github.com/2020/01/wordpress/LNMP%E4%BC%98%E5%8C%96WordPress%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/LNMP%E4%BC%98%E5%8C%96WordPress%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:41:45.171Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="情况说明"><a href="#情况说明" class="headerlink" title="情况说明"></a>情况说明</h2><p>我的主机配置是 1G内存，1M带宽。<br>近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。</p><p>下边尝试对内存占用率进行查看。</p><ol><li><p>首选利用top命令，查看那个进程消耗内存最高</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-mem-check.png" alt="内存占用率查看"></p><p>由上图可以看出php-fpm这个进程占用率比较高。</p></li><li><p>php-fpm是干嘛的</p><blockquote><p>nginx本身不能处理PHP，它只是个web服务器，当接收到请求后，如果是php请求，则发给php解释器处理，并把结果返回给客户端。<br>nginx一般是把请求发fastcgi管理进程处理，fascgi管理进程选择cgi子进程处理结果并返回被nginx。<br>PHP-FPM是一个PHP FastCGI管理器，旨在将FastCGI进程管理整合进PHP包中。<br>PHP-FPM提供了更好的PHP进程管理方式，可以有效控制内存和进程、可以平滑重载PHP配置，比spawn-fcgi具有更多优点，所以被PHP官方收录了。</p></blockquote><p>查看当前php-fpm总进程数，命令：ps -ylC php-fpm –sort:rss。其中RSS就是占用的内存情况。如下图：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-18-aliyun-mem-rss.png" alt="php-fpm 内存占用"></p><p>由上图可以看出php-fpm进程普遍占用60M左右内存，这是不正常的。</p></li></ol><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>对于宝塔用户来说，php配置文件路径在</p><pre class="line-numbers language-bash"><code class="language-bash">php.ini地址：/www/server/php/版本（根据实际情况）/etc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在宝塔界面，同样提供了修改配置文件，如下图为默认配置：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-php-conf-default.png" alt="修改配置文件"></p><h3 id="解决php-fpm进程不释放内存问题"><a href="#解决php-fpm进程不释放内存问题" class="headerlink" title="解决php-fpm进程不释放内存问题"></a>解决php-fpm进程不释放内存问题</h3><p>同样修改了每个子程序在最大request数量导致重启的数值</p><pre class="line-numbers language-bash"><code class="language-bash">pm.max_requests <span class="token operator">=</span> 500<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>经过这两天的测试，发现修改完效果比较好，见下图内存占用率监控</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/after-setting-php-fpm.jpg" alt="内存占用率监控"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;情况说明&quot;&gt;&lt;a href=&quot;#情况说明&quot; class=&quot;headerlink&quot; title=&quot;情况说明&quot;&gt;&lt;/a&gt;情况说明&lt;/h2&gt;&lt;p&gt;我的主机配置是 1G内存，1M带宽。&lt;br&gt;近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>筛选老域名过程</title>
+    <link href="taicaile.github.com/2020/01/SEO/%E7%AD%9B%E9%80%89%E8%80%81%E5%9F%9F%E5%90%8D%E8%BF%87%E7%A8%8B.html"/>
+    <id>taicaile.github.com/2020/01/SEO/%E7%AD%9B%E9%80%89%E8%80%81%E5%9F%9F%E5%90%8D%E8%BF%87%E7%A8%8B.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:41:35.395Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>老域名出售网站，批量查询网网址<br><a href="http://www.juming.com/" target="_blank" rel="noopener">http://www.juming.com/</a></p><p>查询结果选择所有可以批量导出域名。</p></li><li><p>批量域名历史记录查询<br><a href="https://seo.juziseo.com/snapshot/" target="_blank" rel="noopener">https://seo.juziseo.com/snapshot/</a></p></li></ul><p>后续过滤掉做过灰色产业的即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;老域名出售网站，批量查询网网址&lt;br&gt;&lt;a href=&quot;http://www.juming.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.juming.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;查询结果选择所有可以批
+      
+    
+    </summary>
+    
+    
+      <category term="SEO" scheme="taicaile.github.com/categories/SEO/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>WordPress 网站加载速度优化</title>
+    <link href="taicaile.github.com/2020/01/wordpress/WordPress%E7%BD%91%E7%AB%99%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/WordPress%E7%BD%91%E7%AB%99%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:00.097Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一些用于测试速度的网站"><a href="#一些用于测试速度的网站" class="headerlink" title="一些用于测试速度的网站"></a>一些用于测试速度的网站</h2><ul><li><p>很重要的一条是来自于百度蜘蛛，在百度资源管理中<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-time-spend.png" alt="百度蜘蛛抓取时间"></p></li><li><p><a href="https://gtmetrix.com/analyze.html" target="_blank" rel="noopener">https://gtmetrix.com/analyze.html</a></p></li><li><p>谷歌出品的，相对来说靠谱<br><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">https://developers.google.com/speed/pagespeed/insights/</a></p></li><li><p>站长工具<br><a href="http://tool.chinaz.com/speedtest" target="_blank" rel="noopener">http://tool.chinaz.com/speedtest</a></p></li></ul><p><a href="https://tools.pingdom.com/" target="_blank" rel="noopener">https://tools.pingdom.com/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一些用于测试速度的网站&quot;&gt;&lt;a href=&quot;#一些用于测试速度的网站&quot; class=&quot;headerlink&quot; title=&quot;一些用于测试速度的网站&quot;&gt;&lt;/a&gt;一些用于测试速度的网站&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;很重要的一条是来自于百度蜘蛛，在百度资源管理中&lt;b
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Wordpress 搭建个人博客主题选择以及相关设置</title>
+    <link href="taicaile.github.com/2020/01/wordpress/Wordpress%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/Wordpress%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:41:56.278Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h2><p>在这里我用的是从网上下载的WordPress主题 <a href="http://www.thefox.cn/alibaixiu.shtml" target="_blank" rel="noopener">大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]</a>，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。<br><a href="https://themebetter.com/theme/xiu#use" target="_blank" rel="noopener">XIU主题官方连接</a></p><p>这里小编在阿里百秀XIU主题上做的一些改动，仅为记录：</p><ul><li><p>每次打开wordpress后台配置主题的时候都会跳转到优惠券，解决方法如下图：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-1.png" alt="xiu去除广告-1"></p></li><li><p>第二个加载广告的地方，这里是判断cookie中是否存储了点击过的连接，修改方法如下：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-2.png" alt="xiu去除广告-2"></p></li><li><p>将description的80字限制改成了200。描述中含有英文的话，就会很容易超出80字，这里放宽限制条件，防止在搜索页面显示不全。<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.80words.limitation.png" alt="去除了description的80字限制"></p></li></ul><h3 id="Xiu主题一些常用的信息"><a href="#Xiu主题一些常用的信息" class="headerlink" title="Xiu主题一些常用的信息"></a>Xiu主题一些常用的信息</h3><ul><li><p>Icon全名称查看<br><a href="http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png" target="_blank" rel="noopener">http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png</a></p></li><li><p>图标的引用方法</p><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>glyphicon glyphicon-shopping-cart<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>首页<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;主题选择&quot;&gt;&lt;a href=&quot;#主题选择&quot; class=&quot;headerlink&quot; title=&quot;主题选择&quot;&gt;&lt;/a&gt;主题选择&lt;/h2&gt;&lt;p&gt;在这里我用的是从网上下载的WordPress主题 &lt;a href=&quot;http://www.thefox.cn/alibaix
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PicGo + GitHub 搭建自己的图床</title>
+    <link href="taicaile.github.com/2020/01/GitHub+PicGO%E6%90%AD%E5%BB%BA%E5%9B%BE%E5%BA%8A.html"/>
+    <id>taicaile.github.com/2020/01/GitHub+PicGO%E6%90%AD%E5%BB%BA%E5%9B%BE%E5%BA%8A.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:51.368Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="GitHub创建仓库"><a href="#GitHub创建仓库" class="headerlink" title="GitHub创建仓库"></a>GitHub创建仓库</h2><ol><li>Github中新建一个仓库，单独存储图片用</li><li>点击个人setting，选择Developer settings，生成token用于实现程序自动化上传<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-personal-setting.png" alt="设置选项"></li><li>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 Generate token 就完成了</li><li>然后复制生成一串字符 token，添加到PicGo中</li></ol><h2 id="PicGo-下载连接"><a href="#PicGo-下载连接" class="headerlink" title="PicGo 下载连接"></a>PicGo 下载连接</h2><p>PicGo 支持拖动图片上传到GitHub同时生成Markdown引用，下载地址如下：</p><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></p><p>按照下图提示对GitHub进行配置即可<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-picgo-setting.png" alt="PicGo-github配置选项"></p><h2 id="备用的方案"><a href="#备用的方案" class="headerlink" title="备用的方案"></a>备用的方案</h2><p>这里提供两个免费的图床，都很方便使用，不过小编有恐惧症，总怕有一天跑路了，图片就找不到了。</p><p><a href="https://imgbb.com/" target="_blank" rel="noopener">https://imgbb.com/</a></p><p><a href="http://sm.ms/" target="_blank" rel="noopener">http://sm.ms/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;GitHub创建仓库&quot;&gt;&lt;a href=&quot;#GitHub创建仓库&quot; class=&quot;headerlink&quot; title=&quot;GitHub创建仓库&quot;&gt;&lt;/a&gt;GitHub创建仓库&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Github中新建一个仓库，单独存储图片用&lt;/li&gt;
+&lt;li&gt;点
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Wordpress网站配置维护记录</title>
+    <link href="taicaile.github.com/2020/01/wordpress/Wordpress%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE%E7%BB%B4%E6%8A%A4%E8%AE%B0%E5%BD%95.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/Wordpress%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE%E7%BB%B4%E6%8A%A4%E8%AE%B0%E5%BD%95.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:05.111Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="如何自动备份网站"><a href="#如何自动备份网站" class="headerlink" title="如何自动备份网站"></a>如何自动备份网站</h2><ol><li>通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。<ul><li>阿里云OSS快照服务</li></ul></li><li>只备份相关网站数据库，系统上其他程序不做备份。<ul><li>可以选择利用插件UpdraftPlus Backup/Restore完成</li></ul></li></ol><p>这里我使用的是阿里云OSS快照服务，设置每天自动快照备份，保留最新2天的快照。</p><h2 id="如何配置邮件"><a href="#如何配置邮件" class="headerlink" title="如何配置邮件"></a>如何配置邮件</h2><p>Wordpress平台提供的邮件功能不起作用，故只能通过插件重新配置邮件功能。</p><p>目前我采用的方案是利用Post SMTP插件，配置腾讯企业邮箱。下面分别介绍开通企业服务邮箱以及相关设置。</p><h3 id="腾讯企业邮箱设置"><a href="#腾讯企业邮箱设置" class="headerlink" title="腾讯企业邮箱设置"></a>腾讯企业邮箱设置</h3><ol><li>可以去申请一下服务号邮箱</li><li>管理员需要开通服务邮箱的SMTP的权限</li><li>服务号邮箱上也要开启SMTP功能<br><img src="https://i.loli.net/2020/01/16/Rl9XjJv74EhBqCo.png" alt="image.png"></li><li>生成客户端密码</li></ol><h3 id="Post-SMTP插件配置"><a href="#Post-SMTP插件配置" class="headerlink" title="Post SMTP插件配置"></a>Post SMTP插件配置</h3><ol><li>smtp.exmail.qq.com(使用SSL，端口号465)</li><li>如果之前有安装过此款插件，建议现在插件中重置一下，清除相关配置数据。</li></ol><h2 id="wordpress常用的一些插件"><a href="#wordpress常用的一些插件" class="headerlink" title="wordpress常用的一些插件"></a>wordpress常用的一些插件</h2><h3 id="Akismet-Basic-Free"><a href="#Akismet-Basic-Free" class="headerlink" title="Akismet Basic (Free)"></a>Akismet Basic (Free)</h3><p>这款插件据说是用来屏蔽垃圾评论的，不过我的站点基本上就我自己发文章，也很少会有人注册评论，这里暂时先不开启。</p><h3 id="WordFence"><a href="#WordFence" class="headerlink" title="WordFence"></a>WordFence</h3><p>网站的防火墙，可以设置密码错误次数上限，可以防止别人暴力破解管理员密码。</p><h3 id="Companion-Auto-Update"><a href="#Companion-Auto-Update" class="headerlink" title="Companion Auto Update"></a>Companion Auto Update</h3><p>可以设置自动更新WordPress内核, 插件, 主题，翻译语言等功能。</p><p>目前只设置了每天自动更新内容。插件没设置自动更新的原因是害怕插件更新后于系统不匹配，故手动进行更新。</p><h3 id="Yoast-SEO"><a href="#Yoast-SEO" class="headerlink" title="Yoast SEO"></a>Yoast SEO</h3><p>用于SEO优化，可以对页面，文章等TDK进行设置。可以生成sitemap文件。<br>Yoast SEO插件为每个页面都生成一个结构化文件用以表述这是个人还是组织。</p><p>因为目前网站的访问量比较小，为了防止百度认为过多的进行了SEO优化，所以暂时将此部分内容屏蔽掉。</p><p>How to deactivate Structured Data Generation in Yoast SEO?</p><p>If in any case, you do not use SNIP, you can use this filter in any of your custom plugins and/or your themes functions.php to remove Structured Data generated by Yoast SEO:</p><p>在functions.php文件中添加如下代码即可</p><pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_filter</span><span class="token punctuation">(</span> <span class="token string">'wpseo_json_ld_output'</span><span class="token punctuation">,</span> <span class="token string">'__return_false'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="如何记录404连接"><a href="#如何记录404连接" class="headerlink" title="如何记录404连接"></a>如何记录404连接</h2><p>在主题的404.php 中增加以下代码，无效连接会自动存储到 域名/badlink.txt 中</p><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>  <span class="token variable">$fp</span> <span class="token operator">=</span>   <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"badlink.txt"</span><span class="token punctuation">,</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_EX</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>    <span class="token function">fwrite</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token function">home_url</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_UN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">fclose</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token delimiter">?></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;如何自动备份网站&quot;&gt;&lt;a href=&quot;#如何自动备份网站&quot; class=&quot;headerlink&quot; title=&quot;如何自动备份网站&quot;&gt;&lt;/a&gt;如何自动备份网站&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。&lt;ul&gt;
+&lt;li&gt;阿
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在WordPress中如何进行调试输出调试信息</title>
+    <link href="taicaile.github.com/2020/01/wordpress/wordpress%E5%90%8E%E5%8F%B0%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cdebug%E8%BE%93%E5%87%BA%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/wordpress%E5%90%8E%E5%8F%B0%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cdebug%E8%BE%93%E5%87%BA%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:43:29.791Z</updated>
+    
+    <content type="html"><![CDATA[<p>可以选择记录在txt文档中，相关代码如下：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;可以选择记录在txt文档中，相关代码如下：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-PHP&quot;&gt;&lt;code class=&quot;language-PHP&quot;&gt;add_action(&#39;save_post&#39;, &#39;wpjam_save_post_noti
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何在windows下搭建wordpress开发环境，对wordpress进行调试</title>
+    <link href="taicaile.github.com/2020/01/wordpress/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAwordpress%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html"/>
+    <id>taicaile.github.com/2020/01/wordpress/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAwordpress%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:08.755Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="本地开发环境进行调试"><a href="#本地开发环境进行调试" class="headerlink" title="本地开发环境进行调试"></a>本地开发环境进行调试</h2><blockquote><p>WampServer is a Windows web development environment. It allows you to create web applications with Apache2, PHP and a MySQL database. Alongside, PhpMyAdmin allows you to manage easily your databases.</p></blockquote><p><a href="http://www.wampserver.com/en/" target="_blank" rel="noopener">http://www.wampserver.com/en/</a></p><h2 id="远程开发环境"><a href="#远程开发环境" class="headerlink" title="远程开发环境"></a>远程开发环境</h2><p>这里我选择的是直接在服务器上进行调试。 用宝塔新建一个wordpress博客程序，挂在在其他用不到的子域名，复制主题代码到我们新建的域名目录下，安装之后即可进行调试。</p><p>调试结束后可以在宝塔上停止站点运行。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;本地开发环境进行调试&quot;&gt;&lt;a href=&quot;#本地开发环境进行调试&quot; class=&quot;headerlink&quot; title=&quot;本地开发环境进行调试&quot;&gt;&lt;/a&gt;本地开发环境进行调试&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;WampServer is a Windows w
+      
+    
+    </summary>
+    
+    
+      <category term="Wordpress" scheme="taicaile.github.com/categories/Wordpress/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux系统如何查看内存占用大小</title>
+    <link href="taicaile.github.com/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/Linux%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%A4%A7%E5%B0%8F.html"/>
+    <id>taicaile.github.com/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/Linux%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%A4%A7%E5%B0%8F.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:24.914Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p><h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;按进程的CPU使用率排序&quot;&gt;&lt;a href=&quot;#按进程的CPU使用率排序&quot; class=&quot;headerlink&quot; title=&quot;按进程的CPU使用率排序&quot;&gt;&lt;/a&gt;按进程的CPU使用率排序&lt;/h2&gt;&lt;p&gt;输入 top 命令后，键入大写P，效果图如下：&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="云服务器" scheme="taicaile.github.com/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
+    <link href="taicaile.github.com/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html"/>
+    <id>taicaile.github.com/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:29.946Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png&quot; alt=&quot;阿里云监控CPU历史占用率&quot;&gt;&lt;/p&gt;
+&lt;h2 id
+      
+    
+    </summary>
+    
+    
+      <category term="云服务器" scheme="taicaile.github.com/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗</title>
+    <link href="taicaile.github.com/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/Bt(%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF)%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%AE%9A%E6%9C%9F%E8%87%AA%E5%8A%A8%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98%E7%9C%9F%E7%9A%84%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%97.html"/>
+    <id>taicaile.github.com/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/Bt(%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF)%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%AE%9A%E6%9C%9F%E8%87%AA%E5%8A%A8%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98%E7%9C%9F%E7%9A%84%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%97.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:37.320Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。</p><p>在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。</p><p>这是由于我在一开始安装宝塔的时候，选择了自动清理内存的原因：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-release-mem-at-3.30.jpg" alt="宝塔自动释放内存"></p><h2 id="在宝塔上我们应该设置自动清理缓存吗"><a href="#在宝塔上我们应该设置自动清理缓存吗" class="headerlink" title="在宝塔上我们应该设置自动清理缓存吗"></a>在宝塔上我们应该设置自动清理缓存吗</h2><h3 id="清理内存都做了什么"><a href="#清理内存都做了什么" class="headerlink" title="清理内存都做了什么"></a>清理内存都做了什么</h3><p>此部分需需要了解操作系统内存管理相关知识。</p><p>小编认为在生成环境中的服务器不要频繁的释放内存，相比自动释放内存我们应该注意程序优化，让操作系统自动管理内即可。</p><p>每天定时清理内存虽然能够减小程序出错的影响，但也会带来负面的影响。例如此时你的网站正在被百度蜘蛛访问，如果你在此时清理内存，那网站的响应时间肯定会慢一些甚至会出现无法访问的情况。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。&lt;/p&gt;
+&lt;p&gt;在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。&lt;/p&gt;
+&lt;p&gt;这是由于我
+      
+    
+    </summary>
+    
+    
+      <category term="宝塔面板" scheme="taicaile.github.com/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何使用宝塔切割Wordpress博客访问日志</title>
+    <link href="taicaile.github.com/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%88%87%E5%89%B2Wordpress%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97.html"/>
+    <id>taicaile.github.com/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%88%87%E5%89%B2Wordpress%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97.html</id>
+    <published>2020-01-19T16:00:00.000Z</published>
+    <updated>2020-01-25T07:44:42.135Z</updated>
+    
+    <content type="html"><![CDATA[<p>当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。</p><p>这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-splitting-log.png" alt="宝塔面板切割日志"></p><p>宝塔提供的日志存储目录：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-log-file-location.png" alt="宝塔面板日志目录"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。&lt;/p&gt;
+&lt;p&gt;这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=
+      
+    
+    </summary>
+    
+    
+      <category term="宝塔面板" scheme="taicaile.github.com/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"/>
+    
+    
+  </entry>
+  
+</feed>
