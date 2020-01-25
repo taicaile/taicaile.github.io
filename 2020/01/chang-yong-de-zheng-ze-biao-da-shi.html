@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Wordpress 搭建个人博客主题选择以及相关设置, Wordpress建站, 个人博客">
-    <meta name="description" content="主题选择在这里我用的是从网上下载的WordPress主题 大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。XIU主题官方连接
-这里小编在">
+    <meta name="keywords" content="常用的正则表达式, Wordpress建站, 个人博客">
+    <meta name="description" content="匹配HTML下拉列表框的正则表达式]*?&gt;(([^">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Wordpress 搭建个人博客主题选择以及相关设置 | 草根站长小菜</title>
+    <title>常用的正则表达式 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -178,13 +177,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Wordpress 搭建个人博客主题选择以及相关设置
+                        常用的正则表达式
                     </div>
                 </div>
             </div>
@@ -281,29 +280,20 @@
                 </div>
                 <div class="col s5 right-align">
                     
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
-                                Wordpress
-                            </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
 
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-01-20
+                    2020-01-24
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        264
+                        14
                     </div>
                     
 
@@ -326,23 +316,10 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h2><p>在这里我用的是从网上下载的WordPress主题 <a href="http://www.thefox.cn/alibaixiu.shtml" target="_blank" rel="noopener">大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]</a>，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。<br><a href="https://themebetter.com/theme/xiu#use" target="_blank" rel="noopener">XIU主题官方连接</a></p>
-<p>这里小编在阿里百秀XIU主题上做的一些改动，仅为记录：</p>
-<ul>
-<li><p>每次打开wordpress后台配置主题的时候都会跳转到优惠券，解决方法如下图：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-1.png" alt="xiu去除广告-1"></p>
-</li>
-<li><p>第二个加载广告的地方，这里是判断cookie中是否存储了点击过的连接，修改方法如下：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-2.png" alt="xiu去除广告-2"></p>
-</li>
-<li><p>将description的80字限制改成了200。描述中含有英文的话，就会很容易超出80字，这里放宽限制条件，防止在搜索页面显示不全。<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.80words.limitation.png" alt="去除了description的80字限制"></p>
-</li>
-</ul>
-<h3 id="Xiu主题一些常用的信息"><a href="#Xiu主题一些常用的信息" class="headerlink" title="Xiu主题一些常用的信息"></a>Xiu主题一些常用的信息</h3><ul>
-<li><p>Icon全名称查看<br><a href="http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png" target="_blank" rel="noopener">http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png</a></p>
-</li>
-<li><p>图标的引用方法</p>
-<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>glyphicon glyphicon-shopping-cart<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>首页<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-</ul>
+                <h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-txt"><code class="language-txt"><option[^>]*?>(([^<]+))<\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以有效提取value值，不包含标签</p>
+<pre class="line-numbers language-txt"><code class="language-txt">(?<=(<option[^>]*?>(([^<]*)))).+(?=</option>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="在线测试工具"><a href="#在线测试工具" class="headerlink" title="在线测试工具"></a>在线测试工具</h2><p><a href="https://tool.oschina.net/regex" target="_blank" rel="noopener">https://tool.oschina.net/regex</a></p>
 
             </div>
             <hr/>
@@ -366,7 +343,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/wordpress/Wordpress%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%AE%BE%E7%BD%AE.html" class="b-link-green">Wordpress 搭建个人博客主题选择以及相关设置</a>
+                    <a href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html" class="b-link-green">常用的正则表达式</a>
                 </p>
             </div>
         </div>
@@ -387,42 +364,35 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2020/01/wordpress/WordPress%E7%BD%91%E7%AB%99%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96.html">
+                <a href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="WordPress 网站加载速度优化">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="常用的正则表达式">
                         
-                        <span class="card-title">WordPress 网站加载速度优化</span>
+                        <span class="card-title">常用的正则表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一些用于测试速度的网站
-很重要的一条是来自于百度蜘蛛，在百度资源管理中
-
-https://gtmetrix.com/analyze.html
-
-谷歌出品的，相对来说靠谱https://developers.google.com/speed/</div>
+                    <div class="summary">匹配HTML下拉列表框的正则表达式]*?>(([^</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-24
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
-                                    Wordpress
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            小菜
                             
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -433,28 +403,31 @@ https://gtmetrix.com/analyze.html
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/GitHub+PicGO%E6%90%AD%E5%BB%BA%E5%9B%BE%E5%BA%8A.html">
+                <a href="/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="PicGo + GitHub 搭建自己的图床">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Wordpress中如何检测一篇文章是新发布的还是更新">
                         
-                        <span class="card-title">PicGo + GitHub 搭建自己的图床</span>
+                        <span class="card-title">Wordpress中如何检测一篇文章是新发布的还是更新</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">GitHub创建仓库
-Github中新建一个仓库，单独存储图片用
-点击个人setting，选择Developer settings，生成token用于实现程序自动化上传
-填 description（也是随心填），勾选复选框 repo ，接着</div>
+                    <div class="summary">在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。
+function check_new_vs_update( $post_id ){
+    $myPost        = get_p</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
+                                </a>
+                            
                             
                         </span>
                     </div>

@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Wordpress中如何检测一篇文章是新发布的还是更新, Wordpress建站, 个人博客">
-    <meta name="description" content="在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。
-function check_new_vs_update( $post_id ){
-    $myPost        = get_p">
+    <meta name="keywords" content="如何使用宝塔切割Wordpress博客访问日志, Wordpress建站, 个人博客">
+    <meta name="description" content="当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。
+这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：
+
+宝塔提供的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@ function check_new_vs_update( $post_id ){
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Wordpress中如何检测一篇文章是新发布的还是更新 | 草根站长小菜</title>
+    <title>如何使用宝塔切割Wordpress博客访问日志 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -179,13 +180,13 @@ function check_new_vs_update( $post_id ){
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Wordpress中如何检测一篇文章是新发布的还是更新
+                        如何使用宝塔切割Wordpress博客访问日志
                     </div>
                 </div>
             </div>
@@ -285,8 +286,8 @@ function check_new_vs_update( $post_id ){
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
-                                Wordpress
+                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
+                                宝塔面板
                             </a>
                         
                     </div>
@@ -304,7 +305,7 @@ function check_new_vs_update( $post_id ){
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        104
+                        112
                     </div>
                     
 
@@ -327,42 +328,11 @@ function check_new_vs_update( $post_id ){
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。</p>
-<pre class="line-numbers language-PHP"><code class="language-PHP">function check_new_vs_update( $post_id ){
-    $myPost        = get_post($post_id);
-    $post_created  = new DateTime( $myPost->post_date_gmt );
-    $post_modified = new DateTime( $myPost->post_modified_gmt );
-
-    if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){
-        // New post
-    }else{
-        // Updated post
-    }
-}
-add_action('save_post', 'check_new_vs_update' );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>完整版代码如下，message会记录在txt文档中：</p>
-<pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);
-function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
-   if($post->post_status != 'publish') return;
-
-   $myPost        = get_post($post_id);
-   $post_created  = new DateTime( $myPost->post_date_gmt );
-   $post_modified = new DateTime( $myPost->post_modified_gmt );
-
-    $msg = 'Is this un update? ';
-    $fp =   fopen("error.log","a");
-    flock   ($fp, LOCK_EX) ;  
-
-   if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){
-         $msg .=  'No.' ;// New post
-   }else{
-         $msg .= 'Yes.';// Updated post
-    }
-
-    fwrite  ($fp, "$msg"."\n");  
-    flock   ($fp, LOCK_UN);  
-    fclose  ($fp);  
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <p>当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。</p>
+<p>这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-splitting-log.png" alt="宝塔面板切割日志"></p>
+<p>宝塔提供的日志存储目录：</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-log-file-location.png" alt="宝塔面板日志目录"></p>
 
             </div>
             <hr/>
@@ -386,7 +356,7 @@ function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/wordpress/Wordpress%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E6%98%AF%E6%9B%B4%E6%96%B0%E8%BF%98%E6%98%AF%E6%96%B0%E5%8F%91%E5%B8%83.html" class="b-link-green">Wordpress中如何检测一篇文章是新发布的还是更新</a>
+                    <a href="/2020/01/bao-ta-mian-ban/ru-he-shi-yong-bao-ta-qie-ge-wordpress-bo-ke-fang-wen-ri-zhi.html" class="b-link-green">如何使用宝塔切割Wordpress博客访问日志</a>
                 </p>
             </div>
         </div>
@@ -411,25 +381,31 @@ function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">
+                <a href="/2020/01/bao-ta-mian-ban/bt-bao-ta-mian-ban-de-ji-hua-ren-wu-gong-neng-ding-qi-zi-dong-shi-fang-nei-cun-zhen-de-yao-she-zhi-ma.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="常用的正则表达式">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗">
                         
-                        <span class="card-title">常用的正则表达式</span>
+                        <span class="card-title">Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">匹配HTML下拉列表框的正则表达式]*?>(([^</div>
+                    <div class="summary">最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。
+在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。
+这是</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-24
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
+                                    宝塔面板
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -441,35 +417,40 @@ function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fa fa-chevron-right"></i>
+                Current&nbsp;<i class="fa fa-dot-circle-o"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html">
+                <a href="/2020/01/bao-ta-mian-ban/ru-he-shi-yong-bao-ta-qie-ge-wordpress-bo-ke-fang-wen-ri-zhi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="阿里云主机如何查看历史CPU负载以及内容占用率">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="如何使用宝塔切割Wordpress博客访问日志">
                         
-                        <span class="card-title">阿里云主机如何查看历史CPU负载以及内容占用率</span>
+                        <span class="card-title">如何使用宝塔切割Wordpress博客访问日志</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">
-设置邮件提示，当系统负载触发所设置的条件时阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。
-例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。
-</div>
+                    <div class="summary">当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。
+这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：
+
+宝塔提供的</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
+                                    宝塔面板
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>

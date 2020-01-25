@@ -4,12 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux系统如何查看内存占用大小, Wordpress建站, 个人博客">
-    <meta name="description" content="按进程的CPU使用率排序输入 top 命令后，键入大写P，效果图如下：
-
-按照内容占用率进行配许输入 top 命令后，键入大写M，效果图如下：
-
-">
+    <meta name="keywords" content="Wordpress中如何检测一篇文章是新发布的还是更新, Wordpress建站, 个人博客">
+    <meta name="description" content="在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。
+function check_new_vs_update( $post_id ){
+    $myPost        = get_p">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Linux系统如何查看内存占用大小 | 草根站长小菜</title>
+    <title>Wordpress中如何检测一篇文章是新发布的还是更新 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -181,13 +179,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Linux系统如何查看内存占用大小
+                        Wordpress中如何检测一篇文章是新发布的还是更新
                     </div>
                 </div>
             </div>
@@ -287,8 +285,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-category" target="_blank">
-                                云服务器
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                Wordpress
                             </a>
                         
                     </div>
@@ -306,7 +304,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        53
+                        104
                     </div>
                     
 
@@ -329,10 +327,42 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p>
-<h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>
+                <p>在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。</p>
+<pre class="line-numbers language-PHP"><code class="language-PHP">function check_new_vs_update( $post_id ){
+    $myPost        = get_post($post_id);
+    $post_created  = new DateTime( $myPost->post_date_gmt );
+    $post_modified = new DateTime( $myPost->post_modified_gmt );
+
+    if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){
+        // New post
+    }else{
+        // Updated post
+    }
+}
+add_action('save_post', 'check_new_vs_update' );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整版代码如下，message会记录在txt文档中：</p>
+<pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);
+function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
+   if($post->post_status != 'publish') return;
+
+   $myPost        = get_post($post_id);
+   $post_created  = new DateTime( $myPost->post_date_gmt );
+   $post_modified = new DateTime( $myPost->post_modified_gmt );
+
+    $msg = 'Is this un update? ';
+    $fp =   fopen("error.log","a");
+    flock   ($fp, LOCK_EX) ;  
+
+   if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){
+         $msg .=  'No.' ;// New post
+   }else{
+         $msg .= 'Yes.';// Updated post
+    }
+
+    fwrite  ($fp, "$msg"."\n");  
+    flock   ($fp, LOCK_UN);  
+    fclose  ($fp);  
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -356,7 +386,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/Linux%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%A4%A7%E5%B0%8F.html" class="b-link-green">Linux系统如何查看内存占用大小</a>
+                    <a href="/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html" class="b-link-green">Wordpress中如何检测一篇文章是新发布的还是更新</a>
                 </p>
             </div>
         </div>
@@ -381,30 +411,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/wordpress/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAwordpress%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html">
+                <a href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="如何在windows下搭建wordpress开发环境，对wordpress进行调试">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="常用的正则表达式">
                         
-                        <span class="card-title">如何在windows下搭建wordpress开发环境，对wordpress进行调试</span>
+                        <span class="card-title">常用的正则表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">本地开发环境进行调试
-WampServer is a Windows web development environment. It allows you to create web applications with Apache2, P</div>
+                    <div class="summary">匹配HTML下拉列表框的正则表达式]*?>(([^</div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-24
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
-                                    Wordpress
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            小菜
                             
                         </span>
                     </div>
@@ -419,7 +444,7 @@ WampServer is a Windows web development environment. It allows you to create web
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html">
+                <a href="/2020/01/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html">
                     <div class="card-image">
                         
                         
@@ -439,12 +464,8 @@ WampServer is a Windows web development environment. It allows you to create web
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-category" target="_blank">
-                                    云服务器
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            小菜
                             
                         </span>
                     </div>

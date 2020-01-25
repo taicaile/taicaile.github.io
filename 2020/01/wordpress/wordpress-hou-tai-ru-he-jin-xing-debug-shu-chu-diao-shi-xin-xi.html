@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="百度蜘蛛抓取时间问题以及反馈码问题, Wordpress建站, 个人博客">
-    <meta name="description" content="同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？
-工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。
-在深圳Baidus">
+    <meta name="keywords" content="在WordPress中如何进行调试输出调试信息, Wordpress建站, 个人博客">
+    <meta name="description" content="可以选择记录在txt文档中，相关代码如下：
+add_action(&#39;save_post&#39;, &#39;wpjam_save_post_notify_baidu_zz&#39;, 10, 3);
+function wpjam_save_post_notify">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>百度蜘蛛抓取时间问题以及反馈码问题 | 草根站长小菜</title>
+    <title>在WordPress中如何进行调试输出调试信息 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -179,13 +179,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        百度蜘蛛抓取时间问题以及反馈码问题
+                        在WordPress中如何进行调试输出调试信息
                     </div>
                 </div>
             </div>
@@ -285,8 +285,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/SEO/" class="post-category" target="_blank">
-                                SEO
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                Wordpress
                             </a>
                         
                     </div>
@@ -304,7 +304,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        373
+                        64
                     </div>
                     
 
@@ -327,30 +327,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>同学问：站点遇到百度蜘蛛抓取，应该在多长时间内给出反馈？时间太长会不会被惩罚？</p>
-<p>工程师答：1秒是最好，最多4至5秒也可以接受，如果时间再长，恐怕蜘蛛会过段时间再来了。当然如果这种情况经常发生，对你站点的抓取是非常不利的。</p>
-<p>在深圳Baiduspider3.0主题的高端沙龙中，我们的高级工程师也有这样一页PPT，其中提到历史抓取效果好和服务器稳定的站点，Spider会优先抓取处理。</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-link.jpg" alt="百度链接抓取说明"></p>
-<ul>
-<li><p>蜘蛛反馈码一般分为以下几种：</p>
-<ul>
-<li>200  （成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。</li>
-<li>204  （无内容）  服务器成功处理了请求，但没有返回任何内容。</li>
-<li>304  （未修改） 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。</li>
-<li>400  （错误请求） 服务器不理解请求的语法。</li>
-<li>404  （未找到） 服务器找不到请求的网页。</li>
-</ul>
-</li>
-<li><p>网站LOG文件可以用以下网站进行分析，方便识别百度蜘蛛，谷歌蜘蛛等信息<br><a href="https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html" target="_blank" rel="noopener">https://www.toolnb.com/tools-spiderlogs-baiduspiderlogs.html</a></p>
-</li>
-<li><p>遇到的问题<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-response-code.png" alt="百度蜘蛛反馈码看不懂"></p>
-</li>
-<li><p>问题分析</p>
-<ul>
-<li>先用百度 spider 进行抓取模拟，通过分析，目前还不得知百度反馈码 200 41240，这个“41240” 指的是什么意思。</li>
-</ul>
-</li>
-</ul>
+                <p>可以选择记录在txt文档中，相关代码如下：</p>
+<pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);
+function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){
+   if($post->post_status != 'publish') return;
+
+   $myPost        = get_post($post_id);
+   $post_created  = new DateTime( $myPost->post_date_gmt );
+   $post_modified = new DateTime( $myPost->post_modified_gmt );
+
+    $msg = 'Is this un update? ';
+    $fp =   fopen("error.log","a");
+    flock   ($fp, LOCK_EX) ;  
+
+   if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){
+         $msg .=  'No.' ;// New post
+   }else{
+         $msg .= 'Yes.';// Updated post
+    }
+
+    fwrite  ($fp, "$msg"."\n");  
+    flock   ($fp, LOCK_UN);  
+    fclose  ($fp);  
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -374,7 +373,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/SEO/%E7%99%BE%E5%BA%A6%E8%9C%98%E8%9B%9B%E6%8A%93%E5%8F%96%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E5%8F%8D%E9%A6%88%E7%A0%81%E9%97%AE%E9%A2%98.html" class="b-link-green">百度蜘蛛抓取时间问题以及反馈码问题</a>
+                    <a href="/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html" class="b-link-green">在WordPress中如何进行调试输出调试信息</a>
                 </p>
             </div>
         </div>
@@ -399,28 +398,39 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html">
+                <a href="/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="阿里云主机如何查看历史CPU负载以及内容占用率">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Wordpress网站配置维护记录">
                         
-                        <span class="card-title">阿里云主机如何查看历史CPU负载以及内容占用率</span>
+                        <span class="card-title">Wordpress网站配置维护记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">
-设置邮件提示，当系统负载触发所设置的条件时阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。
-例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。
-</div>
+                    <div class="summary">如何自动备份网站
+通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。
+阿里云OSS快照服务
+
+
+只备份相关网站数据库，系统上其他程序不做备份。
+可以选择利用插件UpdraftPlus Backup/Restore完成
+
+
+
+这里我</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -435,20 +445,18 @@
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/wordpress/LNMP%E4%BC%98%E5%8C%96WordPress%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98.html">
+                <a href="/2020/01/wordpress/ru-he-da-jian-wordpress-kai-fa-huan-jing.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="如何优化WordPress的内存占用大小">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="如何在windows下搭建wordpress开发环境，对wordpress进行调试">
                         
-                        <span class="card-title">如何优化WordPress的内存占用大小</span>
+                        <span class="card-title">如何在windows下搭建wordpress开发环境，对wordpress进行调试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">情况说明我的主机配置是 1G内存，1M带宽。近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。
-下边尝试对内存占用率进行查看。
-
-首选利用top命令，查看那个进程消</div>
+                    <div class="summary">本地开发环境进行调试
+WampServer is a Windows web development environment. It allows you to create web applications with Apache2, P</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20

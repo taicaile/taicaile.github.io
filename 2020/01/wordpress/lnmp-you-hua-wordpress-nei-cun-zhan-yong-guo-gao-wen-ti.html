@@ -4,10 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗, Wordpress建站, 个人博客">
-    <meta name="description" content="最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。
-在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。
-这是">
+    <meta name="keywords" content="如何优化WordPress的内存占用大小, Wordpress建站, 个人博客">
+    <meta name="description" content="情况说明我的主机配置是 1G内存，1M带宽。近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。
+下边尝试对内存占用率进行查看。
+
+首选利用top命令，查看那个进程消">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗 | 草根站长小菜</title>
+    <title>如何优化WordPress的内存占用大小 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -179,13 +180,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗
+                        如何优化WordPress的内存占用大小
                     </div>
                 </div>
             </div>
@@ -285,8 +286,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
-                                宝塔面板
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                Wordpress
                             </a>
                         
                     </div>
@@ -304,7 +305,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        311
+                        472
                     </div>
                     
 
@@ -327,13 +328,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。</p>
-<p>在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。</p>
-<p>这是由于我在一开始安装宝塔的时候，选择了自动清理内存的原因：</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-release-mem-at-3.30.jpg" alt="宝塔自动释放内存"></p>
-<h2 id="在宝塔上我们应该设置自动清理缓存吗"><a href="#在宝塔上我们应该设置自动清理缓存吗" class="headerlink" title="在宝塔上我们应该设置自动清理缓存吗"></a>在宝塔上我们应该设置自动清理缓存吗</h2><h3 id="清理内存都做了什么"><a href="#清理内存都做了什么" class="headerlink" title="清理内存都做了什么"></a>清理内存都做了什么</h3><p>此部分需需要了解操作系统内存管理相关知识。</p>
-<p>小编认为在生成环境中的服务器不要频繁的释放内存，相比自动释放内存我们应该注意程序优化，让操作系统自动管理内即可。</p>
-<p>每天定时清理内存虽然能够减小程序出错的影响，但也会带来负面的影响。例如此时你的网站正在被百度蜘蛛访问，如果你在此时清理内存，那网站的响应时间肯定会慢一些甚至会出现无法访问的情况。</p>
+                <h2 id="情况说明"><a href="#情况说明" class="headerlink" title="情况说明"></a>情况说明</h2><p>我的主机配置是 1G内存，1M带宽。<br>近期观察主机内存占用率发现，内存频繁超国90%。 尽管小编使用的主机内存是1G的，但从网上查看资料，应该能满足个人博客的需求。</p>
+<p>下边尝试对内存占用率进行查看。</p>
+<ol>
+<li><p>首选利用top命令，查看那个进程消耗内存最高</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-mem-check.png" alt="内存占用率查看"></p>
+<p>由上图可以看出php-fpm这个进程占用率比较高。</p>
+</li>
+<li><p>php-fpm是干嘛的</p>
+<blockquote>
+<p>nginx本身不能处理PHP，它只是个web服务器，当接收到请求后，如果是php请求，则发给php解释器处理，并把结果返回给客户端。<br>nginx一般是把请求发fastcgi管理进程处理，fascgi管理进程选择cgi子进程处理结果并返回被nginx。<br>PHP-FPM是一个PHP FastCGI管理器，旨在将FastCGI进程管理整合进PHP包中。<br>PHP-FPM提供了更好的PHP进程管理方式，可以有效控制内存和进程、可以平滑重载PHP配置，比spawn-fcgi具有更多优点，所以被PHP官方收录了。</p>
+</blockquote>
+<p>查看当前php-fpm总进程数，命令：ps -ylC php-fpm –sort:rss。其中RSS就是占用的内存情况。如下图：</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-18-aliyun-mem-rss.png" alt="php-fpm 内存占用"></p>
+<p>由上图可以看出php-fpm进程普遍占用60M左右内存，这是不正常的。</p>
+</li>
+</ol>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>对于宝塔用户来说，php配置文件路径在</p>
+<pre class="line-numbers language-bash"><code class="language-bash">php.ini地址：/www/server/php/版本（根据实际情况）/etc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在宝塔界面，同样提供了修改配置文件，如下图为默认配置：</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/2020-01-php-conf-default.png" alt="修改配置文件"></p>
+<h3 id="解决php-fpm进程不释放内存问题"><a href="#解决php-fpm进程不释放内存问题" class="headerlink" title="解决php-fpm进程不释放内存问题"></a>解决php-fpm进程不释放内存问题</h3><p>同样修改了每个子程序在最大request数量导致重启的数值</p>
+<pre class="line-numbers language-bash"><code class="language-bash">pm.max_requests <span class="token operator">=</span> 500<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>经过这两天的测试，发现修改完效果比较好，见下图内存占用率监控</p>
+<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/after-setting-php-fpm.jpg" alt="内存占用率监控"></p>
 
             </div>
             <hr/>
@@ -357,7 +375,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/Bt(%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF)%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%AE%9A%E6%9C%9F%E8%87%AA%E5%8A%A8%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98%E7%9C%9F%E7%9A%84%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%97.html" class="b-link-green">Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗</a>
+                    <a href="/2020/01/wordpress/lnmp-you-hua-wordpress-nei-cun-zhan-yong-guo-gao-wen-ti.html" class="b-link-green">如何优化WordPress的内存占用大小</a>
                 </p>
             </div>
         </div>
@@ -382,19 +400,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2CPU%E8%B4%9F%E8%BD%BD%E5%8F%8A%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E7%8E%87.html">
+                <a href="/2020/01/seo/shai-xuan-lao-yu-ming-guo-cheng.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="阿里云主机如何查看历史CPU负载以及内容占用率">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="筛选老域名过程">
                         
-                        <span class="card-title">阿里云主机如何查看历史CPU负载以及内容占用率</span>
+                        <span class="card-title">筛选老域名过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary">
-设置邮件提示，当系统负载触发所设置的条件时阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。
-例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。
+老域名出售网站，批量查询网网址http://www.juming.com/
+查询结果选择所有可以批量导出域名。
+
+批量域名历史记录查询https://seo.juziseo.com/snapshot/
+
+
+后续过滤掉做过灰色产业的即可。
 </div>
                     <div class="publish-info">
                         <span class="publish-date">
@@ -404,8 +427,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-category" target="_blank">
-                                    云服务器
+                            <a href="/categories/SEO/" class="post-category" target="_blank">
+                                    SEO
                                 </a>
                             
                             
@@ -422,20 +445,22 @@
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%88%87%E5%89%B2Wordpress%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97.html">
+                <a href="/2020/01/wordpress/wordpress-wang-zhan-jia-zai-su-du-you-hua.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="如何使用宝塔切割Wordpress博客访问日志">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="WordPress 网站加载速度优化">
                         
-                        <span class="card-title">如何使用宝塔切割Wordpress博客访问日志</span>
+                        <span class="card-title">WordPress 网站加载速度优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。
-这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：
+                    <div class="summary">一些用于测试速度的网站
+很重要的一条是来自于百度蜘蛛，在百度资源管理中
 
-宝塔提供的</div>
+https://gtmetrix.com/analyze.html
+
+谷歌出品的，相对来说靠谱https://developers.google.com/speed/</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
@@ -444,8 +469,8 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
-                                    宝塔面板
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
                                 </a>
                             
                             

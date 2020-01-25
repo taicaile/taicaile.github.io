@@ -4,11 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="如何使用宝塔切割Wordpress博客访问日志, Wordpress建站, 个人博客">
-    <meta name="description" content="当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。
-这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：
+    <meta name="keywords" content="Wordpress网站配置维护记录, Wordpress建站, 个人博客">
+    <meta name="description" content="如何自动备份网站
+通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。
+阿里云OSS快照服务
 
-宝塔提供的">
+
+只备份相关网站数据库，系统上其他程序不做备份。
+可以选择利用插件UpdraftPlus Backup/Restore完成
+
+
+
+这里我">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +23,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>如何使用宝塔切割Wordpress博客访问日志 | 草根站长小菜</title>
+    <title>Wordpress网站配置维护记录 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -180,13 +187,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        如何使用宝塔切割Wordpress博客访问日志
+                        Wordpress网站配置维护记录
                     </div>
                 </div>
             </div>
@@ -286,8 +293,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
-                                宝塔面板
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                Wordpress
                             </a>
                         
                     </div>
@@ -305,14 +312,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        112
+                        672
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>Read Times:&nbsp;&nbsp;
-                        1 Min
+                        2 Min
                     </div>
                     
                 
@@ -328,11 +335,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。</p>
-<p>这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-splitting-log.png" alt="宝塔面板切割日志"></p>
-<p>宝塔提供的日志存储目录：</p>
-<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/bt-pannel-log-file-location.png" alt="宝塔面板日志目录"></p>
+                <h2 id="如何自动备份网站"><a href="#如何自动备份网站" class="headerlink" title="如何自动备份网站"></a>如何自动备份网站</h2><ol>
+<li>通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。<ul>
+<li>阿里云OSS快照服务</li>
+</ul>
+</li>
+<li>只备份相关网站数据库，系统上其他程序不做备份。<ul>
+<li>可以选择利用插件UpdraftPlus Backup/Restore完成</li>
+</ul>
+</li>
+</ol>
+<p>这里我使用的是阿里云OSS快照服务，设置每天自动快照备份，保留最新2天的快照。</p>
+<h2 id="如何配置邮件"><a href="#如何配置邮件" class="headerlink" title="如何配置邮件"></a>如何配置邮件</h2><p>Wordpress平台提供的邮件功能不起作用，故只能通过插件重新配置邮件功能。</p>
+<p>目前我采用的方案是利用Post SMTP插件，配置腾讯企业邮箱。下面分别介绍开通企业服务邮箱以及相关设置。</p>
+<h3 id="腾讯企业邮箱设置"><a href="#腾讯企业邮箱设置" class="headerlink" title="腾讯企业邮箱设置"></a>腾讯企业邮箱设置</h3><ol>
+<li>可以去申请一下服务号邮箱</li>
+<li>管理员需要开通服务邮箱的SMTP的权限</li>
+<li>服务号邮箱上也要开启SMTP功能<br><img src="https://i.loli.net/2020/01/16/Rl9XjJv74EhBqCo.png" alt="image.png"></li>
+<li>生成客户端密码</li>
+</ol>
+<h3 id="Post-SMTP插件配置"><a href="#Post-SMTP插件配置" class="headerlink" title="Post SMTP插件配置"></a>Post SMTP插件配置</h3><ol>
+<li>smtp.exmail.qq.com(使用SSL，端口号465)</li>
+<li>如果之前有安装过此款插件，建议现在插件中重置一下，清除相关配置数据。</li>
+</ol>
+<h2 id="wordpress常用的一些插件"><a href="#wordpress常用的一些插件" class="headerlink" title="wordpress常用的一些插件"></a>wordpress常用的一些插件</h2><h3 id="Akismet-Basic-Free"><a href="#Akismet-Basic-Free" class="headerlink" title="Akismet Basic (Free)"></a>Akismet Basic (Free)</h3><p>这款插件据说是用来屏蔽垃圾评论的，不过我的站点基本上就我自己发文章，也很少会有人注册评论，这里暂时先不开启。</p>
+<h3 id="WordFence"><a href="#WordFence" class="headerlink" title="WordFence"></a>WordFence</h3><p>网站的防火墙，可以设置密码错误次数上限，可以防止别人暴力破解管理员密码。</p>
+<h3 id="Companion-Auto-Update"><a href="#Companion-Auto-Update" class="headerlink" title="Companion Auto Update"></a>Companion Auto Update</h3><p>可以设置自动更新WordPress内核, 插件, 主题，翻译语言等功能。</p>
+<p>目前只设置了每天自动更新内容。插件没设置自动更新的原因是害怕插件更新后于系统不匹配，故手动进行更新。</p>
+<h3 id="Yoast-SEO"><a href="#Yoast-SEO" class="headerlink" title="Yoast SEO"></a>Yoast SEO</h3><p>用于SEO优化，可以对页面，文章等TDK进行设置。可以生成sitemap文件。<br>Yoast SEO插件为每个页面都生成一个结构化文件用以表述这是个人还是组织。</p>
+<p>因为目前网站的访问量比较小，为了防止百度认为过多的进行了SEO优化，所以暂时将此部分内容屏蔽掉。</p>
+<p>How to deactivate Structured Data Generation in Yoast SEO?</p>
+<p>If in any case, you do not use SNIP, you can use this filter in any of your custom plugins and/or your themes functions.php to remove Structured Data generated by Yoast SEO:</p>
+<p>在functions.php文件中添加如下代码即可</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_filter</span><span class="token punctuation">(</span> <span class="token string">'wpseo_json_ld_output'</span><span class="token punctuation">,</span> <span class="token string">'__return_false'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="如何记录404连接"><a href="#如何记录404连接" class="headerlink" title="如何记录404连接"></a>如何记录404连接</h2><p>在主题的404.php 中增加以下代码，无效连接会自动存储到 域名/badlink.txt 中</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+  <span class="token variable">$fp</span> <span class="token operator">=</span>   <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"badlink.txt"</span><span class="token punctuation">,</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_EX</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>  
+  <span class="token function">fwrite</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token function">home_url</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+  <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_UN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+  <span class="token function">fclose</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token delimiter">?></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -356,7 +399,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%88%87%E5%89%B2Wordpress%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97.html" class="b-link-green">如何使用宝塔切割Wordpress博客访问日志</a>
+                    <a href="/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html" class="b-link-green">Wordpress网站配置维护记录</a>
                 </p>
             </div>
         </div>
@@ -381,31 +424,28 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/Bt(%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF)%E7%9A%84%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%AE%9A%E6%9C%9F%E8%87%AA%E5%8A%A8%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98%E7%9C%9F%E7%9A%84%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%97.html">
+                <a href="/2020/01/github-picgo-da-jian-tu-chuang.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="PicGo + GitHub 搭建自己的图床">
                         
-                        <span class="card-title">Bt(宝塔面板)的计划任务功能定期自动释放内存要设置吗</span>
+                        <span class="card-title">PicGo + GitHub 搭建自己的图床</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">最近在看网站内存占用率问题，经过修改相关配置文件1G内存占用率始终维持在70%-80%之间，相比以前效果还是比较比错的。
-在内存占用历史曲线中，也观察到了一个现象是在夜里3:30的时候，内存占用率会突然降下来，然后慢慢回升到稳定水平。
-这是</div>
+                    <div class="summary">GitHub创建仓库
+Github中新建一个仓库，单独存储图片用
+点击个人setting，选择Developer settings，生成token用于实现程序自动化上传
+填 description（也是随心填），勾选复选框 repo ，接着</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
-                                    宝塔面板
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            小菜
                             
                         </span>
                     </div>
@@ -417,23 +457,22 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="fa fa-dot-circle-o"></i>
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AE%9D%E5%A1%94%E5%88%87%E5%89%B2Wordpress%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97.html">
+                <a href="/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="如何使用宝塔切割Wordpress博客访问日志">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="在WordPress中如何进行调试输出调试信息">
                         
-                        <span class="card-title">如何使用宝塔切割Wordpress博客访问日志</span>
+                        <span class="card-title">在WordPress中如何进行调试输出调试信息</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">当我们分析网站问题的时候，一般都会先从访问日志入手。如果所有日志都存储在一个文件里，难免会导致文件过大，不方便分析。
-这里宝塔提供了切割日志的功能，可以定时每周将日志进行切割，即每周的log会单独存储为一个文件，相关设置如下：
-
-宝塔提供的</div>
+                    <div class="summary">可以选择记录在txt文档中，相关代码如下：
+add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);
+function wpjam_save_post_notify</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
@@ -442,15 +481,14 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/" class="post-category" target="_blank">
-                                    宝塔面板
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
