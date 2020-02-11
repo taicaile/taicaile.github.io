@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="contact, Wordpress建站, 个人博客">
-    <meta name="description" content="contact | 草根站长小菜">
+    <meta name="keywords" content="PHP代码推送URLs到百度, Wordpress建站, 个人博客">
+    <meta name="description" content="如果你想国内的客户也能搜索到你的网站，那你不得不想想办法让百度快速收录你的网站。
+
+推送新的文章连接http://data.zz.baidu.com/urls?site=[域名]&amp;amp;token=[token]
+更新文章连接http:/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>contact | 草根站长小菜</title>
+    <title>PHP代码推送URLs到百度 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -177,13 +180,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        contact
+                        PHP代码推送URLs到百度
                     </div>
                 </div>
             </div>
@@ -280,20 +283,29 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                Wordpress
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-01-25
+                    2020-01-26
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        0
+                        303
                     </div>
                     
 
@@ -316,7 +328,43 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>如果你想国内的客户也能搜索到你的网站，那你不得不想想办法让百度快速收录你的网站。</p>
+<ul>
+<li>推送新的文章连接<br><a href="http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]" target="_blank" rel="noopener">http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]</a></li>
+<li>更新文章连接<br><a href="http://data.zz.baidu.com/update?site=[域名]&amp;token=[token]" target="_blank" rel="noopener">http://data.zz.baidu.com/update?site=[域名]&amp;token=[token]</a></li>
+</ul>
+<h2 id="保存文章的时候主动提交URL到百度PHP代码"><a href="#保存文章的时候主动提交URL到百度PHP代码" class="headerlink" title="保存文章的时候主动提交URL到百度PHP代码"></a>保存文章的时候主动提交URL到百度PHP代码</h2><pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_action</span><span class="token punctuation">(</span><span class="token string">'save_post'</span><span class="token punctuation">,</span> <span class="token string">'wpjam_save_post_notify_baidu_zz'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">wpjam_save_post_notify_baidu_zz</span><span class="token punctuation">(</span><span class="token variable">$post_id</span><span class="token punctuation">,</span> <span class="token variable">$post</span><span class="token punctuation">,</span> <span class="token variable">$update</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$post</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">post_status</span> <span class="token operator">!=</span> <span class="token string">'publish'</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$baidu_zz_api_url</span><span class="token operator">=</span> 'http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//data.zz.baidu.com/urls?site=[域名]&amp;token=[token]';</span>
+    <span class="token comment" spellcheck="true">//请到百度站长后台获取你的站点的专属提交链接</span>
+    <span class="token variable">$response</span><span class="token operator">=</span> <span class="token function">wp_remote_post</span><span class="token punctuation">(</span><span class="token variable">$baidu_zz_api_url</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+        <span class="token string">'headers'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'Accept-Encoding'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">''</span><span class="token punctuation">,</span><span class="token string">'Content-Type'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">'text/plain'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">'sslverify'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string">'blocking'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string">'body'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token function">get_permalink</span><span class="token punctuation">(</span><span class="token variable">$post_id</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="有访客的时候自动提交连接到百度"><a href="#有访客的时候自动提交连接到百度" class="headerlink" title="有访客的时候自动提交连接到百度"></a>有访客的时候自动提交连接到百度</h2><p>有访客访问某个页面的时候，js scrip自动提交网址到百度，可以考虑将以下代码添加到模板页面的footer中：</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span></span>
+<span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> bp <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> curProtocol <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>protocol<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>curProtocol <span class="token operator">===</span> <span class="token string">'https'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        bp<span class="token punctuation">.</span>src <span class="token operator">=</span> 'https<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//zz.bdstatic.com/linksubmit/push.js';</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        bp<span class="token punctuation">.</span>src <span class="token operator">=</span> 'http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//push.zhanzhang.baidu.com/push.js';</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> s <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>bp<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li>怎么判断是历史文章还是新文章，希望更新文章和首次发表文章能够用不同的推送</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -339,7 +387,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/contact/index.html" class="b-link-green">contact</a>
+                    <a href="/2020/01/wordpress/php-dai-ma-tui-song-urls-dao-bai-du.html" class="b-link-green">PHP代码推送URLs到百度</a>
                 </p>
             </div>
         </div>
@@ -365,25 +413,32 @@
                 <i class="fa fa-dot-circle-o"></i>&nbsp;Current
             </div>
             <div class="card">
-                <a href="/contact/index.html">
+                <a href="/2020/01/wordpress/php-dai-ma-tui-song-urls-dao-bai-du.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="contact">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="PHP代码推送URLs到百度">
                         
-                        <span class="card-title">contact</span>
+                        <span class="card-title">PHP代码推送URLs到百度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">如果你想国内的客户也能搜索到你的网站，那你不得不想想办法让百度快速收录你的网站。
+
+推送新的文章连接http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]
+更新文章连接http:/</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-25
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -396,33 +451,40 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="fa fa-dot-circle-o"></i>
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/contact/index.html">
+                <a href="/2020/01/hexo-github-pages-da-jian-bo-ke-guo-cheng-ji-lu.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="contact">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Hexo + GitHub Pages搭建静态博客过程记录">
                         
-                        <span class="card-title">contact</span>
+                        <span class="card-title">Hexo + GitHub Pages搭建静态博客过程记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">GitHub配置新建一个仓库名字为 [你的用户名].github.io。
+Node.js 安装在官网下载直接安装即可：https://nodejs.org/en/
+安装Hexonpm install hexo-cli -g
+初始化环境
+he</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-25
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="post-category" target="_blank">
+                                    静态博客
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

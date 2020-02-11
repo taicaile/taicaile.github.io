@@ -4,8 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="contact, Wordpress建站, 个人博客">
-    <meta name="description" content="contact | 草根站长小菜">
+    <meta name="keywords" content="Hexo + GitHub Pages搭建静态博客过程记录, Wordpress建站, 个人博客">
+    <meta name="description" content="GitHub配置新建一个仓库名字为 [你的用户名].github.io。
+Node.js 安装在官网下载直接安装即可：https://nodejs.org/en/
+安装Hexonpm install hexo-cli -g
+初始化环境
+he">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>contact | 草根站长小菜</title>
+    <title>Hexo + GitHub Pages搭建静态博客过程记录 | 草根站长小菜</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -177,13 +181,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        contact
+                        Hexo + GitHub Pages搭建静态博客过程记录
                     </div>
                 </div>
             </div>
@@ -280,20 +284,29 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="post-category" target="_blank">
+                                静态博客
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-01-25
+                    2020-01-26
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        0
+                        225
                     </div>
                     
 
@@ -316,7 +329,23 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>新建一个仓库名字为 [你的用户名].github.io。</p>
+<h2 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h2><p>在官网下载直接安装即可：<br><a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><pre class="line-numbers language-node.js"><code class="language-node.js">npm install hexo-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>初始化环境</p>
+<pre class="line-numbers language-node.js"><code class="language-node.js">hexo init [你的名字].github.io
+
+cd [你的名字].github.io
+
+npm install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="运行本地环境"><a href="#运行本地环境" class="headerlink" title="运行本地环境"></a>运行本地环境</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="清理，生成，运行环境"><a href="#清理，生成，运行环境" class="headerlink" title="清理，生成，运行环境"></a>清理，生成，运行环境</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo clean && hexo g && hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="部署到远端"><a href="#部署到远端" class="headerlink" title="部署到远端"></a>部署到远端</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Hexo-主题选择"><a href="#Hexo-主题选择" class="headerlink" title="Hexo 主题选择"></a>Hexo 主题选择</h2><p>Hexo解析markdown文件生成静态博客还是属于比较新的技术，目前的主题选择性不是很多，且官方网站对主题也没有很好的分类和评分功能。</p>
+<p>小编试过了一些主题，有部分主题目前还是存在一些bug，例如生成的主页面是空白，或者更改某个选项实际上不起作用。</p>
+<p>最终选择了matery这个主题，链接如下：</p>
+<p><a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank" rel="noopener">https://github.com/blinkfox/hexo-theme-matery</a></p>
+
             </div>
             <hr/>
 
@@ -339,7 +368,7 @@
                     </span>
                     <a href="taicaile.github.com" class="b-link-green">草根站长小菜</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/contact/index.html" class="b-link-green">contact</a>
+                    <a href="/2020/01/hexo-github-pages-da-jian-bo-ke-guo-cheng-ji-lu.html" class="b-link-green">Hexo + GitHub Pages搭建静态博客过程记录</a>
                 </p>
             </div>
         </div>
@@ -360,35 +389,40 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/contact/index.html">
+                <a href="/2020/01/wordpress/php-dai-ma-tui-song-urls-dao-bai-du.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="contact">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="PHP代码推送URLs到百度">
                         
-                        <span class="card-title">contact</span>
+                        <span class="card-title">PHP代码推送URLs到百度</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">如果你想国内的客户也能搜索到你的网站，那你不得不想想办法让百度快速收录你的网站。
+
+推送新的文章连接http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]
+更新文章连接http:/</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-26
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Wordpress/" class="post-category" target="_blank">
+                                    Wordpress
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -396,23 +430,25 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="fa fa-dot-circle-o"></i>
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/contact/index.html">
+                <a href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="contact">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="常用的正则表达式">
                         
-                        <span class="card-title">contact</span>
+                        <span class="card-title">常用的正则表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">匹配HTML下拉列表框的正则表达式&lt;option[^>]*?>(([^&lt;]+))&lt;\/option>
+可以有效提取value值，不包含标签
+(?&lt;=(&lt;option[^>]*?>(([^&lt;]*)))).+</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-25
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-24
                             </span>
                         <span class="publish-author">
                             
@@ -422,7 +458,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

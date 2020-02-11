@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="常用的正则表达式, Wordpress建站, 个人博客">
-    <meta name="description" content="匹配HTML下拉列表框的正则表达式]*?&gt;(([^">
+    <meta name="description" content="匹配HTML下拉列表框的正则表达式&amp;lt;option[^&gt;]*?&gt;(([^&amp;lt;]+))&amp;lt;\/option&gt;
+可以有效提取value值，不包含标签
+(?&amp;lt;=(&amp;lt;option[^&gt;]*?&gt;(([^&amp;lt;]*)))).+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -293,7 +295,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>Word Count:&nbsp;&nbsp;
-                        14
+                        49
                     </div>
                     
 
@@ -316,9 +318,9 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-txt"><code class="language-txt"><option[^>]*?>(([^<]+))<\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option[^</span><span class="token punctuation">></span></span>]*?>(([^&lt;]+))&lt;\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以有效提取value值，不包含标签</p>
-<pre class="line-numbers language-txt"><code class="language-txt">(?<=(<option[^>]*?>(([^<]*)))).+(?=</option>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">(?&lt;=(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option[^</span><span class="token punctuation">></span></span>]*?>(([^&lt;]*)))).+(?=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="在线测试工具"><a href="#在线测试工具" class="headerlink" title="在线测试工具"></a>在线测试工具</h2><p><a href="https://tool.oschina.net/regex" target="_blank" rel="noopener">https://tool.oschina.net/regex</a></p>
 
             </div>
@@ -364,35 +366,41 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html">
+                <a href="/2020/01/hexo-github-pages-da-jian-bo-ke-guo-cheng-ji-lu.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="常用的正则表达式">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Hexo + GitHub Pages搭建静态博客过程记录">
                         
-                        <span class="card-title">常用的正则表达式</span>
+                        <span class="card-title">Hexo + GitHub Pages搭建静态博客过程记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">匹配HTML下拉列表框的正则表达式]*?>(([^</div>
+                    <div class="summary">GitHub配置新建一个仓库名字为 [你的用户名].github.io。
+Node.js 安装在官网下载直接安装即可：https://nodejs.org/en/
+安装Hexonpm install hexo-cli -g
+初始化环境
+he</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-26
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            小菜
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="post-category" target="_blank">
+                                    静态博客
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -403,19 +411,18 @@
                 Next&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html">
+                <a href="/2020/01/wordpress/wordpress-da-jian-ge-ren-bo-ke-zhu-ti-xuan-ze-yi-ji-xiang-guan-she-zhi.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Wordpress中如何检测一篇文章是新发布的还是更新">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Wordpress 搭建个人博客主题选择以及相关设置">
                         
-                        <span class="card-title">Wordpress中如何检测一篇文章是新发布的还是更新</span>
+                        <span class="card-title">Wordpress 搭建个人博客主题选择以及相关设置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。
-function check_new_vs_update( $post_id ){
-    $myPost        = get_p</div>
+                    <div class="summary">主题选择在这里我用的是从网上下载的WordPress主题 大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。XIU主题官方连接
+这里小编在</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2020-01-20
@@ -502,7 +509,7 @@ function check_new_vs_update( $post_id ){
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">3.1k</span>
+                <span class="white-color">3.6k</span>
             
 
             

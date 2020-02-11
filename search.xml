@@ -4,24 +4,11 @@
   
     
     <entry>
-      <title>常用的正则表达式</title>
-      <link href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html"/>
-      <url>/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html</url>
+      <title>PHP代码推送URLs到百度</title>
+      <link href="/2020/01/wordpress/php-dai-ma-tui-song-urls-dao-bai-du.html"/>
+      <url>/2020/01/wordpress/php-dai-ma-tui-song-urls-dao-bai-du.html</url>
       
-        <content type="html"><![CDATA[<h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-txt"><code class="language-txt"><option[^>]*?>(([^<]+))<\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>可以有效提取value值，不包含标签</p><pre class="line-numbers language-txt"><code class="language-txt">(?<=(<option[^>]*?>(([^<]*)))).+(?=</option>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="在线测试工具"><a href="#在线测试工具" class="headerlink" title="在线测试工具"></a>在线测试工具</h2><p><a href="https://tool.oschina.net/regex" target="_blank" rel="noopener">https://tool.oschina.net/regex</a></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Wordpress中如何检测一篇文章是新发布的还是更新</title>
-      <link href="/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html"/>
-      <url>/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html</url>
-      
-        <content type="html"><![CDATA[<p>在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。</p><pre class="line-numbers language-PHP"><code class="language-PHP">function check_new_vs_update( $post_id ){    $myPost        = get_post($post_id);    $post_created  = new DateTime( $myPost->post_date_gmt );    $post_modified = new DateTime( $myPost->post_modified_gmt );    if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){        // New post    }else{        // Updated post    }}add_action('save_post', 'check_new_vs_update' );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>完整版代码如下，message会记录在txt文档中：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>如果你想国内的客户也能搜索到你的网站，那你不得不想想办法让百度快速收录你的网站。</p><ul><li>推送新的文章连接<br><a href="http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]" target="_blank" rel="noopener">http://data.zz.baidu.com/urls?site=[域名]&amp;token=[token]</a></li><li>更新文章连接<br><a href="http://data.zz.baidu.com/update?site=[域名]&amp;token=[token]" target="_blank" rel="noopener">http://data.zz.baidu.com/update?site=[域名]&amp;token=[token]</a></li></ul><h2 id="保存文章的时候主动提交URL到百度PHP代码"><a href="#保存文章的时候主动提交URL到百度PHP代码" class="headerlink" title="保存文章的时候主动提交URL到百度PHP代码"></a>保存文章的时候主动提交URL到百度PHP代码</h2><pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_action</span><span class="token punctuation">(</span><span class="token string">'save_post'</span><span class="token punctuation">,</span> <span class="token string">'wpjam_save_post_notify_baidu_zz'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token keyword">function</span> <span class="token function">wpjam_save_post_notify_baidu_zz</span><span class="token punctuation">(</span><span class="token variable">$post_id</span><span class="token punctuation">,</span> <span class="token variable">$post</span><span class="token punctuation">,</span> <span class="token variable">$update</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$post</span><span class="token operator">-</span><span class="token operator">></span><span class="token property">post_status</span> <span class="token operator">!=</span> <span class="token string">'publish'</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>    <span class="token variable">$baidu_zz_api_url</span><span class="token operator">=</span> 'http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//data.zz.baidu.com/urls?site=[域名]&amp;token=[token]';</span>    <span class="token comment" spellcheck="true">//请到百度站长后台获取你的站点的专属提交链接</span>    <span class="token variable">$response</span><span class="token operator">=</span> <span class="token function">wp_remote_post</span><span class="token punctuation">(</span><span class="token variable">$baidu_zz_api_url</span><span class="token punctuation">,</span> <span class="token keyword">array</span><span class="token punctuation">(</span>        <span class="token string">'headers'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'Accept-Encoding'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">''</span><span class="token punctuation">,</span><span class="token string">'Content-Type'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">'text/plain'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>        <span class="token string">'sslverify'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">false</span><span class="token punctuation">,</span>        <span class="token string">'blocking'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token boolean">false</span><span class="token punctuation">,</span>        <span class="token string">'body'</span><span class="token operator">=</span><span class="token operator">></span> <span class="token function">get_permalink</span><span class="token punctuation">(</span><span class="token variable">$post_id</span><span class="token punctuation">)</span>    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="有访客的时候自动提交连接到百度"><a href="#有访客的时候自动提交连接到百度" class="headerlink" title="有访客的时候自动提交连接到百度"></a>有访客的时候自动提交连接到百度</h2><p>有访客访问某个页面的时候，js scrip自动提交网址到百度，可以考虑将以下代码添加到模板页面的footer中：</p><pre class="line-numbers language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token keyword">var</span> bp <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">var</span> curProtocol <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>protocol<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>curProtocol <span class="token operator">===</span> <span class="token string">'https'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        bp<span class="token punctuation">.</span>src <span class="token operator">=</span> 'https<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//zz.bdstatic.com/linksubmit/push.js';</span>    <span class="token punctuation">}</span>    <span class="token keyword">else</span> <span class="token punctuation">{</span>        bp<span class="token punctuation">.</span>src <span class="token operator">=</span> 'http<span class="token punctuation">:</span><span class="token comment" spellcheck="true">//push.zhanzhang.baidu.com/push.js';</span>    <span class="token punctuation">}</span>    <span class="token keyword">var</span> s <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    s<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>bp<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul><li>怎么判断是历史文章还是新文章，希望更新文章和首次发表文章能够用不同的推送</li></ul>]]></content>
       
       
       <categories>
@@ -36,11 +23,30 @@
     
     
     <entry>
-      <title>PicGo + GitHub 搭建自己的图床</title>
-      <link href="/2020/01/github-picgo-da-jian-tu-chuang.html"/>
-      <url>/2020/01/github-picgo-da-jian-tu-chuang.html</url>
+      <title>Hexo + GitHub Pages搭建静态博客过程记录</title>
+      <link href="/2020/01/hexo-github-pages-da-jian-bo-ke-guo-cheng-ji-lu.html"/>
+      <url>/2020/01/hexo-github-pages-da-jian-bo-ke-guo-cheng-ji-lu.html</url>
       
-        <content type="html"><![CDATA[<h2 id="GitHub创建仓库"><a href="#GitHub创建仓库" class="headerlink" title="GitHub创建仓库"></a>GitHub创建仓库</h2><ol><li>Github中新建一个仓库，单独存储图片用</li><li>点击个人setting，选择Developer settings，生成token用于实现程序自动化上传<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-personal-setting.png" alt="设置选项"></li><li>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 Generate token 就完成了</li><li>然后复制生成一串字符 token，添加到PicGo中</li></ol><h2 id="PicGo-下载连接"><a href="#PicGo-下载连接" class="headerlink" title="PicGo 下载连接"></a>PicGo 下载连接</h2><p>PicGo 支持拖动图片上传到GitHub同时生成Markdown引用，下载地址如下：</p><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></p><p>按照下图提示对GitHub进行配置即可<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-picgo-setting.png" alt="PicGo-github配置选项"></p><h2 id="备用的方案"><a href="#备用的方案" class="headerlink" title="备用的方案"></a>备用的方案</h2><p>这里提供两个免费的图床，都很方便使用，不过小编有恐惧症，总怕有一天跑路了，图片就找不到了。</p><p><a href="https://imgbb.com/" target="_blank" rel="noopener">https://imgbb.com/</a></p><p><a href="http://sm.ms/" target="_blank" rel="noopener">http://sm.ms/</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p>新建一个仓库名字为 [你的用户名].github.io。</p><h2 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h2><p>在官网下载直接安装即可：<br><a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><pre class="line-numbers language-node.js"><code class="language-node.js">npm install hexo-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>初始化环境</p><pre class="line-numbers language-node.js"><code class="language-node.js">hexo init [你的名字].github.iocd [你的名字].github.ionpm install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="运行本地环境"><a href="#运行本地环境" class="headerlink" title="运行本地环境"></a>运行本地环境</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="清理，生成，运行环境"><a href="#清理，生成，运行环境" class="headerlink" title="清理，生成，运行环境"></a>清理，生成，运行环境</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo clean && hexo g && hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="部署到远端"><a href="#部署到远端" class="headerlink" title="部署到远端"></a>部署到远端</h3><pre class="line-numbers language-Node.js"><code class="language-Node.js">hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="Hexo-主题选择"><a href="#Hexo-主题选择" class="headerlink" title="Hexo 主题选择"></a>Hexo 主题选择</h2><p>Hexo解析markdown文件生成静态博客还是属于比较新的技术，目前的主题选择性不是很多，且官方网站对主题也没有很好的分类和评分功能。</p><p>小编试过了一些主题，有部分主题目前还是存在一些bug，例如生成的主页面是空白，或者更改某个选项实际上不起作用。</p><p>最终选择了matery这个主题，链接如下：</p><p><a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank" rel="noopener">https://github.com/blinkfox/hexo-theme-matery</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 静态博客 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>常用的正则表达式</title>
+      <link href="/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html"/>
+      <url>/2020/01/chang-yong-de-zheng-ze-biao-da-shi.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="匹配HTML下拉列表框的正则表达式"><a href="#匹配HTML下拉列表框的正则表达式" class="headerlink" title="匹配HTML下拉列表框的正则表达式"></a>匹配HTML下拉列表框的正则表达式</h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option[^</span><span class="token punctuation">></span></span>]*?>(([^&lt;]+))&lt;\/option><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>可以有效提取value值，不包含标签</p><pre class="line-numbers language-html"><code class="language-html">(?&lt;=(<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option[^</span><span class="token punctuation">></span></span>]*?>(([^&lt;]*)))).+(?=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="在线测试工具"><a href="#在线测试工具" class="headerlink" title="在线测试工具"></a>在线测试工具</h2><p><a href="https://tool.oschina.net/regex" target="_blank" rel="noopener">https://tool.oschina.net/regex</a></p>]]></content>
       
       
       
@@ -49,16 +55,16 @@
     
     
     <entry>
-      <title>筛选老域名过程</title>
-      <link href="/2020/01/seo/shai-xuan-lao-yu-ming-guo-cheng.html"/>
-      <url>/2020/01/seo/shai-xuan-lao-yu-ming-guo-cheng.html</url>
+      <title>Wordpress 搭建个人博客主题选择以及相关设置</title>
+      <link href="/2020/01/wordpress/wordpress-da-jian-ge-ren-bo-ke-zhu-ti-xuan-ze-yi-ji-xiang-guan-she-zhi.html"/>
+      <url>/2020/01/wordpress/wordpress-da-jian-ge-ren-bo-ke-zhu-ti-xuan-ze-yi-ji-xiang-guan-she-zhi.html</url>
       
-        <content type="html"><![CDATA[<ul><li><p>老域名出售网站，批量查询网网址<br><a href="http://www.juming.com/" target="_blank" rel="noopener">http://www.juming.com/</a></p><p>查询结果选择所有可以批量导出域名。</p></li><li><p>批量域名历史记录查询<br><a href="https://seo.juziseo.com/snapshot/" target="_blank" rel="noopener">https://seo.juziseo.com/snapshot/</a></p></li></ul><p>后续过滤掉做过灰色产业的即可。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h2><p>在这里我用的是从网上下载的WordPress主题 <a href="http://www.thefox.cn/alibaixiu.shtml" target="_blank" rel="noopener">大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]</a>，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。<br><a href="https://themebetter.com/theme/xiu#use" target="_blank" rel="noopener">XIU主题官方连接</a></p><p>这里小编在阿里百秀XIU主题上做的一些改动，仅为记录：</p><ul><li><p>每次打开wordpress后台配置主题的时候都会跳转到优惠券，解决方法如下图：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-1.png" alt="xiu去除广告-1"></p></li><li><p>第二个加载广告的地方，这里是判断cookie中是否存储了点击过的连接，修改方法如下：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-2.png" alt="xiu去除广告-2"></p></li><li><p>将description的80字限制改成了200。描述中含有英文的话，就会很容易超出80字，这里放宽限制条件，防止在搜索页面显示不全。<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.80words.limitation.png" alt="去除了description的80字限制"></p></li></ul><h3 id="Xiu主题一些常用的信息"><a href="#Xiu主题一些常用的信息" class="headerlink" title="Xiu主题一些常用的信息"></a>Xiu主题一些常用的信息</h3><ul><li><p>Icon全名称查看<br><a href="http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png" target="_blank" rel="noopener">http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png</a></p></li><li><p>图标的引用方法</p><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>glyphicon glyphicon-shopping-cart<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>首页<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul>]]></content>
       
       
       <categories>
           
-          <category> SEO </category>
+          <category> Wordpress </category>
           
       </categories>
       
@@ -87,16 +93,16 @@
     
     
     <entry>
-      <title>WordPress 网站加载速度优化</title>
-      <link href="/2020/01/wordpress/wordpress-wang-zhan-jia-zai-su-du-you-hua.html"/>
-      <url>/2020/01/wordpress/wordpress-wang-zhan-jia-zai-su-du-you-hua.html</url>
+      <title>筛选老域名过程</title>
+      <link href="/2020/01/seo/shai-xuan-lao-yu-ming-guo-cheng.html"/>
+      <url>/2020/01/seo/shai-xuan-lao-yu-ming-guo-cheng.html</url>
       
-        <content type="html"><![CDATA[<h2 id="一些用于测试速度的网站"><a href="#一些用于测试速度的网站" class="headerlink" title="一些用于测试速度的网站"></a>一些用于测试速度的网站</h2><ul><li><p>很重要的一条是来自于百度蜘蛛，在百度资源管理中<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-time-spend.png" alt="百度蜘蛛抓取时间"></p></li><li><p><a href="https://gtmetrix.com/analyze.html" target="_blank" rel="noopener">https://gtmetrix.com/analyze.html</a></p></li><li><p>谷歌出品的，相对来说靠谱<br><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">https://developers.google.com/speed/pagespeed/insights/</a></p></li><li><p>站长工具<br><a href="http://tool.chinaz.com/speedtest" target="_blank" rel="noopener">http://tool.chinaz.com/speedtest</a></p></li></ul><p><a href="https://tools.pingdom.com/" target="_blank" rel="noopener">https://tools.pingdom.com/</a></p>]]></content>
+        <content type="html"><![CDATA[<ul><li><p>老域名出售网站，批量查询网网址<br><a href="http://www.juming.com/" target="_blank" rel="noopener">http://www.juming.com/</a></p><p>查询结果选择所有可以批量导出域名。</p></li><li><p>批量域名历史记录查询<br><a href="https://seo.juziseo.com/snapshot/" target="_blank" rel="noopener">https://seo.juziseo.com/snapshot/</a></p></li></ul><p>后续过滤掉做过灰色产业的即可。</p>]]></content>
       
       
       <categories>
           
-          <category> Wordpress </category>
+          <category> SEO </category>
           
       </categories>
       
@@ -125,11 +131,24 @@
     
     
     <entry>
-      <title>Wordpress 搭建个人博客主题选择以及相关设置</title>
-      <link href="/2020/01/wordpress/wordpress-da-jian-ge-ren-bo-ke-zhu-ti-xuan-ze-yi-ji-xiang-guan-she-zhi.html"/>
-      <url>/2020/01/wordpress/wordpress-da-jian-ge-ren-bo-ke-zhu-ti-xuan-ze-yi-ji-xiang-guan-she-zhi.html</url>
+      <title>PicGo + GitHub 搭建自己的图床</title>
+      <link href="/2020/01/github-picgo-da-jian-tu-chuang.html"/>
+      <url>/2020/01/github-picgo-da-jian-tu-chuang.html</url>
       
-        <content type="html"><![CDATA[<h2 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h2><p>在这里我用的是从网上下载的WordPress主题 <a href="http://www.thefox.cn/alibaixiu.shtml" target="_blank" rel="noopener">大前端 阿里百秀 XIU 小清新CMS高级主题[更新v7.1]</a>，一开始对这个主题不是很了解，后来才知道这个主题是非官方的，代码里增加了点击优惠券的连接。<br><a href="https://themebetter.com/theme/xiu#use" target="_blank" rel="noopener">XIU主题官方连接</a></p><p>这里小编在阿里百秀XIU主题上做的一些改动，仅为记录：</p><ul><li><p>每次打开wordpress后台配置主题的时候都会跳转到优惠券，解决方法如下图：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-1.png" alt="xiu去除广告-1"></p></li><li><p>第二个加载广告的地方，这里是判断cookie中是否存储了点击过的连接，修改方法如下：<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.ad-2.png" alt="xiu去除广告-2"></p></li><li><p>将description的80字限制改成了200。描述中含有英文的话，就会很容易超出80字，这里放宽限制条件，防止在搜索页面显示不全。<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/xiu.remove.80words.limitation.png" alt="去除了description的80字限制"></p></li></ul><h3 id="Xiu主题一些常用的信息"><a href="#Xiu主题一些常用的信息" class="headerlink" title="Xiu主题一些常用的信息"></a>Xiu主题一些常用的信息</h3><ul><li><p>Icon全名称查看<br><a href="http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png" target="_blank" rel="noopener">http://static.truefox.cn/wp-content/uploads/2014/06/baec6461b0d69dde1b861aefbe375d8a.png</a></p></li><li><p>图标的引用方法</p><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>glyphicon glyphicon-shopping-cart<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>首页<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="GitHub创建仓库"><a href="#GitHub创建仓库" class="headerlink" title="GitHub创建仓库"></a>GitHub创建仓库</h2><ol><li>Github中新建一个仓库，单独存储图片用</li><li>点击个人setting，选择Developer settings，生成token用于实现程序自动化上传<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-personal-setting.png" alt="设置选项"></li><li>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 Generate token 就完成了</li><li>然后复制生成一串字符 token，添加到PicGo中</li></ol><h2 id="PicGo-下载连接"><a href="#PicGo-下载连接" class="headerlink" title="PicGo 下载连接"></a>PicGo 下载连接</h2><p>PicGo 支持拖动图片上传到GitHub同时生成Markdown引用，下载地址如下：</p><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></p><p>按照下图提示对GitHub进行配置即可<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/github-picgo-setting.png" alt="PicGo-github配置选项"></p><h2 id="备用的方案"><a href="#备用的方案" class="headerlink" title="备用的方案"></a>备用的方案</h2><p>这里提供两个免费的图床，都很方便使用，不过小编有恐惧症，总怕有一天跑路了，图片就找不到了。</p><p><a href="https://imgbb.com/" target="_blank" rel="noopener">https://imgbb.com/</a></p><p><a href="http://sm.ms/" target="_blank" rel="noopener">http://sm.ms/</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Wordpress中如何检测一篇文章是新发布的还是更新</title>
+      <link href="/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html"/>
+      <url>/2020/01/wordpress/wordpress-ru-he-jian-ce-yi-pian-wen-zhang-shi-geng-xin-huan-shi-xin-fa-bu.html</url>
+      
+        <content type="html"><![CDATA[<p>在百度推送的js代码里，是没有区分文章是更新还是新发布，但百度提供的链接提交的接口里有区分两种情况的。</p><pre class="line-numbers language-PHP"><code class="language-PHP">function check_new_vs_update( $post_id ){    $myPost        = get_post($post_id);    $post_created  = new DateTime( $myPost->post_date_gmt );    $post_modified = new DateTime( $myPost->post_modified_gmt );    if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){        // New post    }else{        // Updated post    }}add_action('save_post', 'check_new_vs_update' );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>完整版代码如下，message会记录在txt文档中：</p><pre class="line-numbers language-PHP"><code class="language-PHP">add_action('save_post', 'wpjam_save_post_notify_baidu_zz', 10, 3);function wpjam_save_post_notify_baidu_zz($post_id, $post, $update){   if($post->post_status != 'publish') return;   $myPost        = get_post($post_id);   $post_created  = new DateTime( $myPost->post_date_gmt );   $post_modified = new DateTime( $myPost->post_modified_gmt );    $msg = 'Is this un update? ';    $fp =   fopen("error.log","a");    flock   ($fp, LOCK_EX) ;     if( abs( $post_created->diff( $post_modified )->s ) <= 1 ){         $msg .=  'No.' ;// New post   }else{         $msg .= 'Yes.';// Updated post    }    fwrite  ($fp, "$msg"."\n");      flock   ($fp, LOCK_UN);      fclose  ($fp);  }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -157,6 +176,25 @@
     
     
     <entry>
+      <title>WordPress 网站加载速度优化</title>
+      <link href="/2020/01/wordpress/wordpress-wang-zhan-jia-zai-su-du-you-hua.html"/>
+      <url>/2020/01/wordpress/wordpress-wang-zhan-jia-zai-su-du-you-hua.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="一些用于测试速度的网站"><a href="#一些用于测试速度的网站" class="headerlink" title="一些用于测试速度的网站"></a>一些用于测试速度的网站</h2><ul><li><p>很重要的一条是来自于百度蜘蛛，在百度资源管理中<br><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/baidu-spider-time-spend.png" alt="百度蜘蛛抓取时间"></p></li><li><p><a href="https://gtmetrix.com/analyze.html" target="_blank" rel="noopener">https://gtmetrix.com/analyze.html</a></p></li><li><p>谷歌出品的，相对来说靠谱<br><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">https://developers.google.com/speed/pagespeed/insights/</a></p></li><li><p>站长工具<br><a href="http://tool.chinaz.com/speedtest" target="_blank" rel="noopener">http://tool.chinaz.com/speedtest</a></p></li></ul><p><a href="https://tools.pingdom.com/" target="_blank" rel="noopener">https://tools.pingdom.com/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Wordpress </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在WordPress中如何进行调试输出调试信息</title>
       <link href="/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html"/>
       <url>/2020/01/wordpress/wordpress-hou-tai-ru-he-jin-xing-debug-shu-chu-diao-shi-xin-xi.html</url>
@@ -167,82 +205,6 @@
       <categories>
           
           <category> Wordpress </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Wordpress网站配置维护记录</title>
-      <link href="/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html"/>
-      <url>/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="如何自动备份网站"><a href="#如何自动备份网站" class="headerlink" title="如何自动备份网站"></a>如何自动备份网站</h2><ol><li>通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。<ul><li>阿里云OSS快照服务</li></ul></li><li>只备份相关网站数据库，系统上其他程序不做备份。<ul><li>可以选择利用插件UpdraftPlus Backup/Restore完成</li></ul></li></ol><p>这里我使用的是阿里云OSS快照服务，设置每天自动快照备份，保留最新2天的快照。</p><h2 id="如何配置邮件"><a href="#如何配置邮件" class="headerlink" title="如何配置邮件"></a>如何配置邮件</h2><p>Wordpress平台提供的邮件功能不起作用，故只能通过插件重新配置邮件功能。</p><p>目前我采用的方案是利用Post SMTP插件，配置腾讯企业邮箱。下面分别介绍开通企业服务邮箱以及相关设置。</p><h3 id="腾讯企业邮箱设置"><a href="#腾讯企业邮箱设置" class="headerlink" title="腾讯企业邮箱设置"></a>腾讯企业邮箱设置</h3><ol><li>可以去申请一下服务号邮箱</li><li>管理员需要开通服务邮箱的SMTP的权限</li><li>服务号邮箱上也要开启SMTP功能<br><img src="https://i.loli.net/2020/01/16/Rl9XjJv74EhBqCo.png" alt="image.png"></li><li>生成客户端密码</li></ol><h3 id="Post-SMTP插件配置"><a href="#Post-SMTP插件配置" class="headerlink" title="Post SMTP插件配置"></a>Post SMTP插件配置</h3><ol><li>smtp.exmail.qq.com(使用SSL，端口号465)</li><li>如果之前有安装过此款插件，建议现在插件中重置一下，清除相关配置数据。</li></ol><h2 id="wordpress常用的一些插件"><a href="#wordpress常用的一些插件" class="headerlink" title="wordpress常用的一些插件"></a>wordpress常用的一些插件</h2><h3 id="Akismet-Basic-Free"><a href="#Akismet-Basic-Free" class="headerlink" title="Akismet Basic (Free)"></a>Akismet Basic (Free)</h3><p>这款插件据说是用来屏蔽垃圾评论的，不过我的站点基本上就我自己发文章，也很少会有人注册评论，这里暂时先不开启。</p><h3 id="WordFence"><a href="#WordFence" class="headerlink" title="WordFence"></a>WordFence</h3><p>网站的防火墙，可以设置密码错误次数上限，可以防止别人暴力破解管理员密码。</p><h3 id="Companion-Auto-Update"><a href="#Companion-Auto-Update" class="headerlink" title="Companion Auto Update"></a>Companion Auto Update</h3><p>可以设置自动更新WordPress内核, 插件, 主题，翻译语言等功能。</p><p>目前只设置了每天自动更新内容。插件没设置自动更新的原因是害怕插件更新后于系统不匹配，故手动进行更新。</p><h3 id="Yoast-SEO"><a href="#Yoast-SEO" class="headerlink" title="Yoast SEO"></a>Yoast SEO</h3><p>用于SEO优化，可以对页面，文章等TDK进行设置。可以生成sitemap文件。<br>Yoast SEO插件为每个页面都生成一个结构化文件用以表述这是个人还是组织。</p><p>因为目前网站的访问量比较小，为了防止百度认为过多的进行了SEO优化，所以暂时将此部分内容屏蔽掉。</p><p>How to deactivate Structured Data Generation in Yoast SEO?</p><p>If in any case, you do not use SNIP, you can use this filter in any of your custom plugins and/or your themes functions.php to remove Structured Data generated by Yoast SEO:</p><p>在functions.php文件中添加如下代码即可</p><pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_filter</span><span class="token punctuation">(</span> <span class="token string">'wpseo_json_ld_output'</span><span class="token punctuation">,</span> <span class="token string">'__return_false'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="如何记录404连接"><a href="#如何记录404连接" class="headerlink" title="如何记录404连接"></a>如何记录404连接</h2><p>在主题的404.php 中增加以下代码，无效连接会自动存储到 域名/badlink.txt 中</p><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>  <span class="token variable">$fp</span> <span class="token operator">=</span>   <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"badlink.txt"</span><span class="token punctuation">,</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_EX</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>    <span class="token function">fwrite</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token function">home_url</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_UN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">fclose</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token delimiter">?></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> Wordpress </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux系统如何查看内存占用大小</title>
-      <link href="/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html"/>
-      <url>/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p><h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 云服务器 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>如何在windows下搭建wordpress开发环境，对wordpress进行调试</title>
-      <link href="/2020/01/wordpress/ru-he-da-jian-wordpress-kai-fa-huan-jing.html"/>
-      <url>/2020/01/wordpress/ru-he-da-jian-wordpress-kai-fa-huan-jing.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="本地开发环境进行调试"><a href="#本地开发环境进行调试" class="headerlink" title="本地开发环境进行调试"></a>本地开发环境进行调试</h2><blockquote><p>WampServer is a Windows web development environment. It allows you to create web applications with Apache2, PHP and a MySQL database. Alongside, PhpMyAdmin allows you to manage easily your databases.</p></blockquote><p><a href="http://www.wampserver.com/en/" target="_blank" rel="noopener">http://www.wampserver.com/en/</a></p><h2 id="远程开发环境"><a href="#远程开发环境" class="headerlink" title="远程开发环境"></a>远程开发环境</h2><p>这里我选择的是直接在服务器上进行调试。 用宝塔新建一个wordpress博客程序，挂在在其他用不到的子域名，复制主题代码到我们新建的域名目录下，安装之后即可进行调试。</p><p>调试结束后可以在宝塔上停止站点运行。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Wordpress </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
-      <link href="/2020/01/yun-fu-wu-qi/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html"/>
-      <url>/2020/01/yun-fu-wu-qi/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 云服务器 </category>
           
       </categories>
       
@@ -271,6 +233,44 @@
     
     
     <entry>
+      <title>Wordpress网站配置维护记录</title>
+      <link href="/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html"/>
+      <url>/2020/01/wordpress/wordpress-wang-zhan-pei-zhi-wei-hu-ji-lu.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="如何自动备份网站"><a href="#如何自动备份网站" class="headerlink" title="如何自动备份网站"></a>如何自动备份网站</h2><ol><li>通过阿里云备份整个磁盘，包含操作系统，网站，软件等所有配置。<ul><li>阿里云OSS快照服务</li></ul></li><li>只备份相关网站数据库，系统上其他程序不做备份。<ul><li>可以选择利用插件UpdraftPlus Backup/Restore完成</li></ul></li></ol><p>这里我使用的是阿里云OSS快照服务，设置每天自动快照备份，保留最新2天的快照。</p><h2 id="如何配置邮件"><a href="#如何配置邮件" class="headerlink" title="如何配置邮件"></a>如何配置邮件</h2><p>Wordpress平台提供的邮件功能不起作用，故只能通过插件重新配置邮件功能。</p><p>目前我采用的方案是利用Post SMTP插件，配置腾讯企业邮箱。下面分别介绍开通企业服务邮箱以及相关设置。</p><h3 id="腾讯企业邮箱设置"><a href="#腾讯企业邮箱设置" class="headerlink" title="腾讯企业邮箱设置"></a>腾讯企业邮箱设置</h3><ol><li>可以去申请一下服务号邮箱</li><li>管理员需要开通服务邮箱的SMTP的权限</li><li>服务号邮箱上也要开启SMTP功能<br><img src="https://i.loli.net/2020/01/16/Rl9XjJv74EhBqCo.png" alt="image.png"></li><li>生成客户端密码</li></ol><h3 id="Post-SMTP插件配置"><a href="#Post-SMTP插件配置" class="headerlink" title="Post SMTP插件配置"></a>Post SMTP插件配置</h3><ol><li>smtp.exmail.qq.com(使用SSL，端口号465)</li><li>如果之前有安装过此款插件，建议现在插件中重置一下，清除相关配置数据。</li></ol><h2 id="wordpress常用的一些插件"><a href="#wordpress常用的一些插件" class="headerlink" title="wordpress常用的一些插件"></a>wordpress常用的一些插件</h2><h3 id="Akismet-Basic-Free"><a href="#Akismet-Basic-Free" class="headerlink" title="Akismet Basic (Free)"></a>Akismet Basic (Free)</h3><p>这款插件据说是用来屏蔽垃圾评论的，不过我的站点基本上就我自己发文章，也很少会有人注册评论，这里暂时先不开启。</p><h3 id="WordFence"><a href="#WordFence" class="headerlink" title="WordFence"></a>WordFence</h3><p>网站的防火墙，可以设置密码错误次数上限，可以防止别人暴力破解管理员密码。</p><h3 id="Companion-Auto-Update"><a href="#Companion-Auto-Update" class="headerlink" title="Companion Auto Update"></a>Companion Auto Update</h3><p>可以设置自动更新WordPress内核, 插件, 主题，翻译语言等功能。</p><p>目前只设置了每天自动更新内容。插件没设置自动更新的原因是害怕插件更新后于系统不匹配，故手动进行更新。</p><h3 id="Yoast-SEO"><a href="#Yoast-SEO" class="headerlink" title="Yoast SEO"></a>Yoast SEO</h3><p>用于SEO优化，可以对页面，文章等TDK进行设置。可以生成sitemap文件。<br>Yoast SEO插件为每个页面都生成一个结构化文件用以表述这是个人还是组织。</p><p>因为目前网站的访问量比较小，为了防止百度认为过多的进行了SEO优化，所以暂时将此部分内容屏蔽掉。</p><p>How to deactivate Structured Data Generation in Yoast SEO?</p><p>If in any case, you do not use SNIP, you can use this filter in any of your custom plugins and/or your themes functions.php to remove Structured Data generated by Yoast SEO:</p><p>在functions.php文件中添加如下代码即可</p><pre class="line-numbers language-php"><code class="language-php"><span class="token function">add_filter</span><span class="token punctuation">(</span> <span class="token string">'wpseo_json_ld_output'</span><span class="token punctuation">,</span> <span class="token string">'__return_false'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="如何记录404连接"><a href="#如何记录404连接" class="headerlink" title="如何记录404连接"></a>如何记录404连接</h2><p>在主题的404.php 中增加以下代码，无效连接会自动存储到 域名/badlink.txt 中</p><pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>  <span class="token variable">$fp</span> <span class="token operator">=</span>   <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string">"badlink.txt"</span><span class="token punctuation">,</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_EX</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>    <span class="token function">fwrite</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token function">home_url</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'REQUEST_URI'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">flock</span>   <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">,</span> <span class="token constant">LOCK_UN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">fclose</span>  <span class="token punctuation">(</span><span class="token variable">$fp</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token delimiter">?></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Wordpress </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何在windows下搭建wordpress开发环境，对wordpress进行调试</title>
+      <link href="/2020/01/wordpress/ru-he-da-jian-wordpress-kai-fa-huan-jing.html"/>
+      <url>/2020/01/wordpress/ru-he-da-jian-wordpress-kai-fa-huan-jing.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="本地开发环境进行调试"><a href="#本地开发环境进行调试" class="headerlink" title="本地开发环境进行调试"></a>本地开发环境进行调试</h2><blockquote><p>WampServer is a Windows web development environment. It allows you to create web applications with Apache2, PHP and a MySQL database. Alongside, PhpMyAdmin allows you to manage easily your databases.</p></blockquote><p><a href="http://www.wampserver.com/en/" target="_blank" rel="noopener">http://www.wampserver.com/en/</a></p><h2 id="远程开发环境"><a href="#远程开发环境" class="headerlink" title="远程开发环境"></a>远程开发环境</h2><p>这里我选择的是直接在服务器上进行调试。 用宝塔新建一个wordpress博客程序，挂在在其他用不到的子域名，复制主题代码到我们新建的域名目录下，安装之后即可进行调试。</p><p>调试结束后可以在宝塔上停止站点运行。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Wordpress </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何使用宝塔切割Wordpress博客访问日志</title>
       <link href="/2020/01/bao-ta-mian-ban/ru-he-shi-yong-bao-ta-qie-ge-wordpress-bo-ke-fang-wen-ri-zhi.html"/>
       <url>/2020/01/bao-ta-mian-ban/ru-he-shi-yong-bao-ta-qie-ge-wordpress-bo-ke-fang-wen-ri-zhi.html</url>
@@ -281,6 +281,44 @@
       <categories>
           
           <category> 宝塔面板 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>阿里云主机如何查看历史CPU负载以及内容占用率</title>
+      <link href="/2020/01/yun-fu-wu-qi/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html"/>
+      <url>/2020/01/yun-fu-wu-qi/a-li-yun-zhu-ji-ru-he-cha-kan-li-shi-cpu-fu-zai-ji-nei-cun-zhan-yong-lu.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/aliyun-monitor-cpu-load.png" alt="阿里云监控CPU历史占用率"></p><h2 id="设置邮件提示，当系统负载触发所设置的条件时"><a href="#设置邮件提示，当系统负载触发所设置的条件时" class="headerlink" title="设置邮件提示，当系统负载触发所设置的条件时"></a>设置邮件提示，当系统负载触发所设置的条件时</h2><p>阿里云监控平台提供了一个功能，当目前服务器的状态触发了我们所设置的条件，会给我们发送一个邮件进行提示。</p><p>例如当系统内存占用率连续5分钟超国90%，则我们会受到一个邮件提示。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 云服务器 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux系统如何查看内存占用大小</title>
+      <link href="/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html"/>
+      <url>/2020/01/yun-fu-wu-qi/linux-xia-ru-he-cha-kan-nei-cun-zhan-yong-da-xiao.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="按进程的CPU使用率排序"><a href="#按进程的CPU使用率排序" class="headerlink" title="按进程的CPU使用率排序"></a>按进程的CPU使用率排序</h2><p>输入 top 命令后，键入大写P，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-P.png" alt="top命令后键入大写P"></p><h2 id="按照内容占用率进行配许"><a href="#按照内容占用率进行配许" class="headerlink" title="按照内容占用率进行配许"></a>按照内容占用率进行配许</h2><p>输入 top 命令后，键入大写M，效果图如下：</p><p><img src="https://raw.githubusercontent.com/taicaile/Cloud-images/master/img/top-command-M.png" alt="top命令后键入大写M"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 云服务器 </category>
           
       </categories>
       
